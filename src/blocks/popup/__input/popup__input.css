@@ -1,0 +1,27 @@
+.popup__input {
+  min-height: 37px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  background-color: transparent;
+
+  font-size: 14px;
+  line-height: 17px;
+
+  transition-property: border-bottom;
+  transition-duration: .3s;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.popup__input::placeholder {
+  color: #c4c4c4;
+
+  user-select: none;
+}

@@ -1,0 +1,13 @@
+.header__logo {
+  max-height: 33px;
+  max-width: 142px;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (max-width: 767px) {
+  .header__logo {
+    max-height: 24.4px;
+    max-width: 103.74px;
+  }
+}

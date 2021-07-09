@@ -1,0 +1,6 @@
+.profile__avatar {
+  width: inherit;
+  height: inherit;
+
+  object-fit: cover;
+}
