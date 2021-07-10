@@ -1,8 +1,6 @@
 export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
-    this.JWT = '';
-    this._authFormat = '';
 
     this._headers = options.headers;
   }
@@ -10,11 +8,11 @@ export default class Api {
   _constructAuthorization() {
     this._headers = {
       ...this._headers,
-      authorization: this._authFormat + this.JWT,
+      authorization: this._authFormat + localStorage.token,
     };
   }
 
-  _handleFetch = res => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`));
+  _handleFetch = res => (res.ok ? res.json() : Promise.reject(res.status));
 
   _customFetch(target, method, body) {
     const options = {
