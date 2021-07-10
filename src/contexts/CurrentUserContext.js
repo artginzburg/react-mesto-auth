@@ -1,6 +1,6 @@
 import React from 'react';
 
-import api from '../utils/api';
+import api from '../api/api';
 
 const defaultUserState = {
   name: 'Неизвестный',
