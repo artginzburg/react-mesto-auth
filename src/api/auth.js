@@ -11,6 +11,12 @@ const api = {
 };
 
 class Auth extends Api {
+  constructor(options) {
+    super(options);
+
+    this._authFormat = 'Bearer ';
+  }
+
   register(email, password) {
     return this._customFetch(api.endpoints.signup, 'POST', { password, email });
   }
@@ -20,6 +26,8 @@ class Auth extends Api {
   }
 
   getUserInfo() {
+    this._constructAuthorization();
+
     return this._customFetch(api.endpoints.user);
   }
 }

@@ -2,9 +2,15 @@ export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this.JWT = '';
+    this._authFormat = '';
+
+    this._headers = options.headers;
+  }
+
+  _constructAuthorization() {
     this._headers = {
-      authorization: `Bearer ${this.JWT}`,
-      ...options.headers,
+      ...this._headers,
+      authorization: this._authFormat + this.JWT,
     };
   }
 

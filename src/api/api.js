@@ -13,6 +13,12 @@ const api = {
 };
 
 class Features extends Api {
+  _customFetch(...args) {
+    this._constructAuthorization();
+
+    return super._customFetch(...args);
+  }
+
   getUserInfo() {
     return this._customFetch(api.endpoints.users);
   }
