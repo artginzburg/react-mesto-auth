@@ -1,6 +1,6 @@
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 const defaults = {
   cardDeleteButtonClassName: 'element__trash-button',
@@ -12,7 +12,7 @@ const Card = memo(props => {
 
   card.likes = card.likes ?? [];
 
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useCurrentUser();
 
   if (card.isTemporarilyLocal) {
     card.owner = currentUser;

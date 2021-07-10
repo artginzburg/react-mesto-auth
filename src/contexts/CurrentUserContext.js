@@ -2,6 +2,8 @@ import React from 'react';
 
 import api from '../api/api';
 
+import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
+
 const defaultUserState = {
   name: 'Неизвестный',
   about: 'Потеряно соединение с сервером',
@@ -9,6 +11,33 @@ const defaultUserState = {
 
 const CurrentUserContext = React.createContext();
 const CurrentUserDispatchContext = React.createContext();
+
+function CurrentUserProvider({ children }) {
+  const [currentUser, setCurrentUser] = useStateWithLocalStorage('currentUser', defaultUserState);
+
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then(setCurrentUser)
+      .catch(err => console.log('Couldnt get user info from the server', err));
+  }, [setCurrentUser]);
+
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserDispatchContext.Provider value={setCurrentUser}>
+        {children}
+      </CurrentUserDispatchContext.Provider>
+    </CurrentUserContext.Provider>
+  );
+}
+
+function useCurrentUser() {
+  const context = React.useContext(CurrentUserContext);
+  if (context === undefined) {
+    throw new Error('useCurrentUser must be used within a CurrentUserProvider');
+  }
+  return context;
+}
 
 function useCurrentUserDispatcher() {
   const context = React.useContext(CurrentUserDispatchContext);
@@ -37,10 +66,4 @@ async function sendApiUpdate(dispatch, user, updates, func) {
   }
 }
 
-export {
-  defaultUserState,
-  CurrentUserContext,
-  CurrentUserDispatchContext,
-  useCurrentUserDispatcher,
-  sendApiUpdate,
-};
+export { CurrentUserProvider, useCurrentUser, useCurrentUserDispatcher, sendApiUpdate };

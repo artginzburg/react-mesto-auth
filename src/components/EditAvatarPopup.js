@@ -1,7 +1,7 @@
-import { memo, useContext, useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import {
-  CurrentUserContext,
+  useCurrentUser,
   useCurrentUserDispatcher,
   sendApiUpdate,
 } from '../contexts/CurrentUserContext';
@@ -12,7 +12,7 @@ import PopupInput from './PopupInput';
 const EditAvatarPopup = memo(props => {
   const ref = useRef();
 
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useCurrentUser();
   const setCurrentUser = useCurrentUserDispatcher();
 
   function handleSubmit() {

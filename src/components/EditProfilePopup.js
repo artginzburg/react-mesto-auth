@@ -1,7 +1,7 @@
-import { useState, useEffect, memo, useContext } from 'react';
+import { useState, useEffect, memo } from 'react';
 
 import {
-  CurrentUserContext,
+  useCurrentUser,
   useCurrentUserDispatcher,
   sendApiUpdate,
 } from '../contexts/CurrentUserContext';
@@ -13,7 +13,7 @@ const EditProfilePopup = memo(props => {
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
 
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useCurrentUser();
   const setCurrentUser = useCurrentUserDispatcher();
 
   useEffect(() => {
