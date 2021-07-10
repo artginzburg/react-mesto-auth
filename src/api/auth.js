@@ -1,8 +1,8 @@
 import Api from '../classes/Api';
+import { apiDomain } from '../utils/constants';
 
 const api = {
-  url: 'auth.nomoreparties.co',
-  protocol: 'https://',
+  url: new URL(`https://auth.${apiDomain}`),
   endpoints: {
     signup: 'signup',
     signin: 'signin',
@@ -25,5 +25,5 @@ class Auth extends Api {
 }
 
 export default new Auth({
-  baseUrl: `${api.protocol}${api.url}`,
+  baseUrl: api.url.origin,
 });

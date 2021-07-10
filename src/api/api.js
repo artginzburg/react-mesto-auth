@@ -1,10 +1,10 @@
 import Api from '../classes/Api';
+import { apiDomain } from '../utils/constants';
 
 const COHORT_ID = 'cohort-24';
 
 const api = {
-  url: 'mesto.nomoreparties.co',
-  protocol: 'https://',
+  url: new URL(`https://mesto.${apiDomain}`),
   version: 'v1',
   endpoints: {
     users: 'users/me',
@@ -45,5 +45,5 @@ class Features extends Api {
 }
 
 export default new Features({
-  baseUrl: `${api.protocol}${api.url}/${api.version}/${COHORT_ID}`,
+  baseUrl: `${api.url.origin}/${api.version}/${COHORT_ID}`,
 });
