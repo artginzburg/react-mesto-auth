@@ -17,17 +17,22 @@ const Login = memo(props => {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     if (!email || !password) {
       return;
     }
+
     auth
       .login(email, password)
       .then(data => {
-        if (data.jwt) {
-          this.setState({ email: '', password: '' }, () => {
-            this.props.handleLogin(data.user.ru_cal_goal.calGoal);
-            this.props.history.push('/');
-          });
+        if (data.token) {
+          setEmail('');
+          setPassword('');
+
+          localStorage.token = data.token;
+
+          props.handleLogin();
+          props.history.push('/');
         }
       })
       .catch(err => console.log(err));
@@ -36,6 +41,7 @@ const Login = memo(props => {
   return (
     <div className="login">
       <p className="login__welcome">Добро пожаловать!</p>
+
       <form onSubmit={handleSubmit} className="login__form">
         <input
           required
@@ -55,11 +61,9 @@ const Login = memo(props => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <div className="login__button-container">
-          <button type="submit" className="login__link">
-            Войти
-          </button>
-        </div>
+        <button type="submit" className="login__link">
+          Войти
+        </button>
       </form>
 
       <div className="login__signup">

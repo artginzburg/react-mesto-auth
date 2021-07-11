@@ -1,9 +1,16 @@
 import React from 'react';
 
+import { Route, Switch, withRouter } from 'react-router-dom';
+
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import api from '../api/api';
+import auth from '../api/auth';
 
 import { useCurrentUser } from '../contexts/CurrentUserContext';
+
+import Register from './Register';
+import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
 
 import Header from './Header';
 import Main from './Main';
@@ -15,8 +22,10 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import ImagePopup from './ImagePopup';
 
-export default function App() {
+function App(props) {
   const currentUser = useCurrentUser();
+
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -147,46 +156,78 @@ export default function App() {
     return () => document.removeEventListener(...listenerArgs);
   }, [escHandler]);
 
+  function handleLogin() {
+    setLoggedIn(true);
+  }
+
+  const handleTokenCheck = React.useCallback(() => {
+    if (localStorage.token) {
+      auth.token = localStorage.token;
+      auth.getUserInfo().then(res => {
+        if (res) {
+          handleLogin();
+          props.history.push('/');
+        }
+      });
+    }
+  }, [props.history]);
+
+  React.useEffect(() => {
+    handleTokenCheck();
+  }, [handleTokenCheck]);
+
   return (
     <>
       <Header />
-      <Main
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        cards={cards}
-        onCardClick={handleCardClick}
-        onCardLike={handleCardLike}
-        onCardDelete={handleConfirmDeleteClick}
-      />
-      <Footer />
+      <Switch>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/login">
+          <Login handleLogin={handleLogin} />
+        </Route>
+        <ProtectedRoute path="/" loggedIn={loggedIn}>
+          <Main
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            cards={cards}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleConfirmDeleteClick}
+          />
+          <Footer />
 
-      <EditProfilePopup
-        onUpdateUser={handleUpdateUser}
-        isOpen={isEditProfilePopupOpen}
-        onClose={handlePopupClick}
-      />
+          <EditProfilePopup
+            onUpdateUser={handleUpdateUser}
+            isOpen={isEditProfilePopupOpen}
+            onClose={handlePopupClick}
+          />
 
-      <AddPlacePopup
-        onAddPlace={handleAddPlaceSubmit}
-        isOpen={isAddPlacePopupOpen}
-        onClose={handlePopupClick}
-      />
+          <AddPlacePopup
+            onAddPlace={handleAddPlaceSubmit}
+            isOpen={isAddPlacePopupOpen}
+            onClose={handlePopupClick}
+          />
 
-      <EditAvatarPopup
-        onUpdateAvatar={handleUpdateAvatar}
-        isOpen={isEditAvatarPopupOpen}
-        onClose={handlePopupClick}
-      />
+          <EditAvatarPopup
+            onUpdateAvatar={handleUpdateAvatar}
+            isOpen={isEditAvatarPopupOpen}
+            onClose={handlePopupClick}
+          />
 
-      <ConfirmDeletePopup
-        card={selectedCard}
-        onCardDelete={handleCardDelete}
-        isOpen={isConfirmDeletePopupOpen}
-        onClose={handlePopupClick}
-      />
+          <ConfirmDeletePopup
+            card={selectedCard}
+            onCardDelete={handleCardDelete}
+            isOpen={isConfirmDeletePopupOpen}
+            onClose={handlePopupClick}
+          />
 
-      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={handlePopupClick} />
+          <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={handlePopupClick} />
+        </ProtectedRoute>
+      </Switch>
     </>
   );
 }
+
+export default withRouter(App);

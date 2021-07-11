@@ -1,8 +1,9 @@
 export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
-
     this._headers = options.headers;
+
+    this._authFormat = '';
   }
 
   _constructAuthorization() {
@@ -16,7 +17,7 @@ export default class Api {
 
   _customFetch(target, method, body) {
     const options = {
-      headers: this._headers,
+      headers: this._headers ?? {},
     };
 
     if (method && method !== 'GET') {

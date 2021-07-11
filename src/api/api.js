@@ -2,6 +2,7 @@ import Api from '../classes/Api';
 import { apiDomain } from '../utils/constants';
 
 const COHORT_ID = 'cohort-24';
+const TOKEN = '70313b07-c3c0-40aa-a296-04d0e6bc7885';
 
 const api = {
   url: new URL(`https://mesto.${apiDomain}`),
@@ -13,12 +14,6 @@ const api = {
 };
 
 class Features extends Api {
-  _customFetch(...args) {
-    this._constructAuthorization();
-
-    return super._customFetch(...args);
-  }
-
   getUserInfo() {
     return this._customFetch(api.endpoints.users);
   }
@@ -52,4 +47,7 @@ class Features extends Api {
 
 export default new Features({
   baseUrl: `${api.url.origin}/${api.version}/${COHORT_ID}`,
+  headers: {
+    authorization: TOKEN,
+  },
 });
