@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Form from './Form';
+import FormInput from './FormInput';
 
 const LoginOrRegister = memo(props => {
   const [email, setEmail] = props.states.email;
@@ -19,9 +20,8 @@ const LoginOrRegister = memo(props => {
     <div className="auth">
       <h2 className="auth__title">{props.title}</h2>
 
-      <Form onSubmit={props.onSubmit} className="auth__form">
-        <input
-          required
+      <Form onSubmit={props.onSubmit} className="form">
+        <FormInput
           autoFocus
           id="email"
           name="email"
@@ -33,8 +33,7 @@ const LoginOrRegister = memo(props => {
           value={email}
           onChange={handleEmailChange}
         />
-        <input
-          required
+        <FormInput
           id={props.passwordAutocomplete}
           name="password"
           type="password"

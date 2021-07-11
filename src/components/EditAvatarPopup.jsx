@@ -7,7 +7,7 @@ import {
 } from '../contexts/CurrentUserContext';
 
 import PopupWithForm from './PopupWithForm';
-import PopupInput from './PopupInput';
+import PopupInput from './FormInput';
 
 const EditAvatarPopup = memo(props => {
   const ref = useRef();

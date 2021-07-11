@@ -7,7 +7,7 @@ import {
 } from '../contexts/CurrentUserContext';
 
 import PopupWithForm from './PopupWithForm';
-import PopupInput from './PopupInput';
+import PopupInput from './FormInput';
 
 const EditProfilePopup = memo(props => {
   const [name, setName] = useState('');

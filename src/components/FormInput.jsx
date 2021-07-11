@@ -40,8 +40,8 @@ const PopupInput = forwardRef((props, forwardedRef) => {
 
   return (
     <>
-      <input {...inputProps} className="popup__input" {...finalProps} />
-      <p className="popup__error" id={`${props.id}-error`} />
+      <input {...inputProps} className="form__input" {...finalProps} />
+      <p className="form__error" id={`${props.id}-error`} />
     </>
   );
 });

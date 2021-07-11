@@ -1,4 +1,4 @@
-.popup__button {
+.form__button {
   background-color: #000;
 
   color: #fff;
@@ -22,21 +22,21 @@
   user-select: none;
 }
 
-.popup__button:first-child {
+.form__button:first-child {
   margin-top: 0;
 }
 
-.popup__button:not(:disabled):active {
+.form__button:not(:disabled):active {
   transform: scale(.95);
 }
 
 @media (hover: hover) {
-  .popup__button:hover {
+  .form__button:hover {
     opacity: .8;
   }
 }
 
-.popup__button:disabled {
+.form__button:disabled {
   opacity: .2;
 
   color: #000;
@@ -46,12 +46,12 @@
   cursor: default;
 }
 
-.popup__button:disabled:active {
+.form__button:disabled:active {
   cursor: not-allowed;
 }
 
 @media screen and (max-width: 767px) {
-  .popup__button {
+  .form__button {
     font-size: 14px;
     line-height: 17px;
   }

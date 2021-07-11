@@ -1,4 +1,4 @@
-.popup__input {
+.form__input {
   min-height: 37px;
 
   outline: none;
@@ -20,7 +20,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.popup__input::placeholder {
+.form__input::placeholder {
   color: #c4c4c4;
 
   user-select: none;

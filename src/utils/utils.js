@@ -3,9 +3,9 @@ export const popupSelectors = {
 };
 
 export const defaultFormConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__error_visible',
 };

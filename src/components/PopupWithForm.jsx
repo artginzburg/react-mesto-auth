@@ -46,9 +46,9 @@ const PopupWithForm = memo(props => {
         <button type="reset" className={popupSelectors.closeButtonClass} />
         <h2 className="popup__title">{props.title}</h2>
 
-        <Form className="popup__form" onSubmit={handleSubmit} onReset={props.onReset}>
+        <Form className="form" onSubmit={handleSubmit} onReset={props.onReset}>
           {children}
-          <button type="submit" className="popup__button">
+          <button type="submit" className="form__button">
             {buttonTitle}
           </button>
         </Form>
