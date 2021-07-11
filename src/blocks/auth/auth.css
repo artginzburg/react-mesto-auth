@@ -1,0 +1,21 @@
+.auth {
+  position: relative;
+
+  text-align: center;
+
+  width: 430px;
+  max-width: 100%;
+
+  height: 600px;
+
+  padding: 60px 36px 0;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .auth {
+    padding: 40px 22px 0;
+    height: 484px;
+  }
+}

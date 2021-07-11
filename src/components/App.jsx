@@ -204,7 +204,6 @@ function App(props) {
             onCardLike={handleCardLike}
             onCardDelete={handleConfirmDeleteClick}
           />
-          <Footer />
 
           <EditProfilePopup
             onUpdateUser={handleUpdateUser}
@@ -234,6 +233,7 @@ function App(props) {
           <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={handlePopupClick} />
         </ProtectedRoute>
       </Switch>
+      <Footer />
     </>
   );
 }

@@ -25,3 +25,7 @@
 
   user-select: none;
 }
+
+/* .form__input::-webkit-credentials-auto-fill-button {
+  background-color: #fff;
+} */
