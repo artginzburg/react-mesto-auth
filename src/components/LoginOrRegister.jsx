@@ -44,7 +44,7 @@ const LoginOrRegister = memo(props => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button type="submit" className="form__button form__button_theme_dark">
+        <button type="submit" className="auth__button form__button form__button_theme_dark">
           {props.buttonTitle}
         </button>
       </Form>

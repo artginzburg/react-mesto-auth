@@ -13,8 +13,6 @@
 
   cursor: pointer;
 
-  margin-top: 28px;
-
   transition-property: opacity background-color color;
   transition-duration: .2s;
 

@@ -48,7 +48,7 @@ const PopupWithForm = memo(props => {
 
         <Form className="form" onSubmit={handleSubmit} onReset={props.onReset}>
           {children}
-          <button type="submit" className="form__button">
+          <button type="submit" className="popup__button form__button">
             {buttonTitle}
           </button>
         </Form>
