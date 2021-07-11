@@ -45,7 +45,7 @@ const LoginOrRegister = memo(props => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button type="submit" className="auth__link">
+        <button type="submit" className="auth__button">
           {props.buttonTitle}
         </button>
       </Form>

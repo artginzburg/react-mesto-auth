@@ -25,9 +25,9 @@ const Register = memo(props => {
 
   return (
     <LoginOrRegister onSubmit={handleSubmit} {...props} {...defaultProps}>
-      <div className="register__signin">
+      <div className="auth__signin">
         <p>Уже зарегистрированы?</p>
-        <Link to="/login" className="register__login-link">
+        <Link to="/login" className="auth__login-link">
           Войти
         </Link>
       </div>
