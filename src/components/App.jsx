@@ -25,7 +25,7 @@ import ImagePopup from './ImagePopup';
 function App(props) {
   const currentUser = useCurrentUser();
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = useStateWithLocalStorage('loggedIn', false);
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -156,9 +156,7 @@ function App(props) {
     return () => document.removeEventListener(...listenerArgs);
   }, [escHandler]);
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
+  const handleLogin = React.useCallback(() => setLoggedIn(true), [setLoggedIn]);
 
   const handleTokenCheck = React.useCallback(() => {
     if (localStorage.token) {
@@ -170,7 +168,7 @@ function App(props) {
         }
       });
     }
-  }, [props.history]);
+  }, [handleLogin, props.history]);
 
   React.useEffect(() => {
     handleTokenCheck();
