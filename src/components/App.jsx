@@ -8,8 +8,7 @@ import auth from '../api/auth';
 
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 
-import Register from './Register';
-import Login from './Login';
+import Authentication from './Authentication';
 import ProtectedRoute from './ProtectedRoute';
 
 import Header from './Header';
@@ -187,11 +186,8 @@ function App(props) {
     <>
       <Header credential={email} />
       <Switch>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login handleLogin={handleLogin} />
+        <Route path={['/register', '/login']}>
+          <Authentication handleLogin={handleLogin} />
         </Route>
         <ProtectedRoute path="/" loggedIn={loggedIn}>
           <Main

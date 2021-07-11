@@ -1,11 +1,11 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 import auth from '../api/auth';
 
 const Register = memo(props => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = props.states.email;
+  const [password, setPassword] = props.states.password;
 
   const handleEmailChange = e => {
     setEmail(e.target.value);
