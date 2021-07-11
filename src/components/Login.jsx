@@ -3,21 +3,19 @@ import { withRouter } from 'react-router-dom';
 
 import auth from '../api/auth';
 
+import LoginOrRegister from './LoginOrRegister';
+
+const defaultProps = {
+  passwordAutocomplete: 'current-password',
+  title: 'Вход',
+  buttonTitle: 'Войти',
+};
+
 const Login = memo(props => {
   const [email, setEmail] = props.states.email;
   const [password, setPassword] = props.states.password;
 
-  const handleEmailChange = e => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = e => {
-    setPassword(e.target.value);
-  };
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  function handleSubmit() {
     if (!email || !password) {
       return;
     }
@@ -38,48 +36,7 @@ const Login = memo(props => {
       .catch(err => console.log(err));
   }
 
-  return (
-    <div className="login">
-      <h2 className="login__welcome">Вход</h2>
-
-      <form
-        id="login"
-        method="POST"
-        autoComplete="on"
-        onSubmit={handleSubmit}
-        className="login__form"
-      >
-        <input
-          required
-          autoFocus
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Email"
-          autoComplete="email"
-          autoCorrect="off"
-          spellCheck="false"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <input
-          required
-          id="current-password"
-          name="password"
-          type="password"
-          placeholder="Пароль"
-          autoComplete="current-password"
-          autoCorrect="off"
-          spellCheck="false"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <button type="submit" className="login__link">
-          Войти
-        </button>
-      </form>
-    </div>
-  );
+  return <LoginOrRegister onSubmit={handleSubmit} {...props} {...defaultProps} />;
 });
 
 export default withRouter(Login);
