@@ -1,10 +1,7 @@
 import { memo, useCallback } from 'react';
 
-const defaultButtonTitle = 'Сохранить';
-
 const Form = memo(props => {
-  const { buttonTitle, onSubmit, ...propsWithoutCustom } = props;
-  props = propsWithoutCustom;
+  const { onSubmit, ...finalProps } = props;
 
   const handleSubmit = useCallback(
     e => {
@@ -18,12 +15,8 @@ const Form = memo(props => {
   );
 
   return (
-    <form action="#" onSubmit={handleSubmit} {...props}>
+    <form action="#" onSubmit={handleSubmit} {...finalProps}>
       {props.children}
-
-      <button type="submit" className="popup__button">
-        {buttonTitle ?? defaultButtonTitle}
-      </button>
     </form>
   );
 });
