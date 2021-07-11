@@ -26,6 +26,7 @@ function App(props) {
   const currentUser = useCurrentUser();
 
   const [loggedIn, setLoggedIn] = React.useState(!!localStorage.token);
+  const [email, setEmail] = React.useState('');
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -165,13 +166,14 @@ function App(props) {
         .getUserInfo()
         .then(res => {
           if (res) {
+            setEmail(res.data.email);
             handleLogin();
             props.history.push('/');
           }
         })
         .catch(err => {
           setLoggedIn(false);
-          delete localStorage.token;
+
           console.log(err);
         });
     }
@@ -183,7 +185,7 @@ function App(props) {
 
   return (
     <>
-      <Header />
+      <Header credential={email} />
       <Switch>
         <Route path="/register">
           <Register />

@@ -1,11 +1,10 @@
 .header {
-  min-height: 120px;
-
   max-width: calc(100vw - 27px*2);
   margin: 0 auto;
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .header::before {
@@ -23,16 +22,14 @@
 
   width: 880px;
   max-width: 100vw;
+}
 
+.header, .header::before {
   min-height: 120px;
 }
 
 @media screen and (max-width: 767px) {
-  .header {
-    min-height: 85px;
-  }
-
-  .header::before {
+  .header, .header::before {
     min-height: 85px;
   }
 }
