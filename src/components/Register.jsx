@@ -27,7 +27,7 @@ const Register = memo(props => {
 
   return (
     <div className="register">
-      <p className="register__welcome">Пожалуйста, зарегистрируйтесь.</p>
+      <h2 className="register__welcome">Регистрация</h2>
       <form onSubmit={handleSubmit} className="register__form">
         <input
           id="email"

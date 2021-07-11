@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import auth from '../api/auth';
 
@@ -40,7 +40,7 @@ const Login = memo(props => {
 
   return (
     <div className="login">
-      <p className="login__welcome">Добро пожаловать!</p>
+      <h2 className="login__welcome">Вход</h2>
 
       <form onSubmit={handleSubmit} className="login__form">
         <input
@@ -65,13 +65,6 @@ const Login = memo(props => {
           Войти
         </button>
       </form>
-
-      <div className="login__signup">
-        <p>Ещё не зарегистрированы?</p>
-        <Link to="/register" className="signup__link">
-          Зарегистрироваться
-        </Link>
-      </div>
     </div>
   );
 });
