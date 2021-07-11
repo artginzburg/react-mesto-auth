@@ -31,7 +31,7 @@ const Login = memo(props => {
 
           localStorage.token = data.token;
 
-          props.handleLogin();
+          props.handleLogin(email);
           props.history.push('/');
         }
       })
@@ -42,22 +42,35 @@ const Login = memo(props => {
     <div className="login">
       <h2 className="login__welcome">Вход</h2>
 
-      <form onSubmit={handleSubmit} className="login__form">
+      <form
+        id="login"
+        method="POST"
+        autoComplete="on"
+        onSubmit={handleSubmit}
+        className="login__form"
+      >
         <input
           required
+          autoFocus
           id="email"
           name="email"
           type="email"
           placeholder="Email"
+          autoComplete="email"
+          autoCorrect="off"
+          spellCheck="false"
           value={email}
           onChange={handleEmailChange}
         />
         <input
           required
-          id="password"
+          id="current-password"
           name="password"
           type="password"
           placeholder="Пароль"
+          autoComplete="current-password"
+          autoCorrect="off"
+          spellCheck="false"
           value={password}
           onChange={handlePasswordChange}
         />

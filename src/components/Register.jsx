@@ -28,20 +28,29 @@ const Register = memo(props => {
   return (
     <div className="register">
       <h2 className="register__welcome">Регистрация</h2>
-      <form onSubmit={handleSubmit} className="register__form">
+      <form id="register" onSubmit={handleSubmit} className="register__form">
         <input
+          required
+          autoFocus
           id="email"
           name="email"
           type="email"
           placeholder="Email"
+          autoComplete="email"
+          autoCorrect="off"
+          spellCheck="false"
           value={email}
           onChange={handleEmailChange}
         />
         <input
-          id="password"
+          required
+          id="new-password"
           name="password"
           type="password"
           placeholder="Пароль"
+          autoComplete="new-password"
+          autoCorrect="off"
+          spellCheck="false"
           value={password}
           onChange={handlePasswordChange}
         />

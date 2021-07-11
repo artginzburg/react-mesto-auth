@@ -156,7 +156,13 @@ function App(props) {
     return () => document.removeEventListener(...listenerArgs);
   }, [escHandler]);
 
-  const handleLogin = React.useCallback(() => setLoggedIn(true), [setLoggedIn]);
+  const handleLogin = React.useCallback(
+    email => {
+      setEmail(email);
+      setLoggedIn(true);
+    },
+    [setLoggedIn]
+  );
 
   const handleTokenCheck = React.useCallback(() => {
     if (localStorage.token) {
@@ -165,8 +171,7 @@ function App(props) {
         .getUserInfo()
         .then(res => {
           if (res) {
-            setEmail(res.data.email);
-            handleLogin();
+            handleLogin(res.data.email);
             props.history.push('/');
           }
         })
