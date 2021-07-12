@@ -13,8 +13,8 @@ export const paths = {
 };
 
 export const appRoutePaths = {
-  login: `*${relativePaths.login}`,
-  register: `*${relativePaths.register}`,
+  login: `${relativePaths.login}`,
+  register: `${relativePaths.register}`,
   main: `*${relativePaths.main}`,
 };
 
