@@ -22,6 +22,8 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import ImagePopup from './ImagePopup';
 
+console.log(`${process.env.GITHUB_REPOSITORY}@${process.env.GITHUB_SHA}`);
+
 function App(props) {
   const currentUser = useCurrentUser();
 
@@ -193,9 +195,11 @@ function App(props) {
       <Header credential={email} />
       <Switch>
         <Route path={[appRoutePaths.register, appRoutePaths.login]}>
+          {console.log('Route matches register or login')}
           <Authentication handleLogin={handleLogin} />
         </Route>
         <ProtectedRoute exact path={appRoutePaths.main} loggedIn={loggedIn}>
+          {console.log('Route is Protected')}
           <Main
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -234,6 +238,7 @@ function App(props) {
           <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={handlePopupClick} />
         </ProtectedRoute>
         <Route path="/">
+          {console.log('Route is last in Switch ("default")')}
           <Redirect to={paths.main} />
         </Route>
       </Switch>
