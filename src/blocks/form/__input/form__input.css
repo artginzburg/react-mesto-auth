@@ -26,6 +26,12 @@
   user-select: none;
 }
 
-/* .form__input::-webkit-credentials-auto-fill-button {
-  background-color: #fff;
-} */
+.form__input:-webkit-autofill,
+.form__input:-webkit-autofill:hover, 
+.form__input:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+
+  -webkit-text-fill-color: #000;
+  border-color: #bb1f1f;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}

@@ -4,6 +4,12 @@ import { withRouter } from 'react-router-dom';
 import Form from './Form';
 import FormInput from './FormInput';
 
+const propsForInputs = {
+  autoCorrect: 'off',
+  spellCheck: false,
+  className: 'form__input_theme_dark',
+};
+
 const LoginOrRegister = memo(props => {
   const [email, setEmail] = props.states.email;
   const [password, setPassword] = props.states.password;
@@ -22,25 +28,23 @@ const LoginOrRegister = memo(props => {
 
       <Form onSubmit={props.onSubmit} className="form">
         <FormInput
+          {...propsForInputs}
           autoFocus
           id="email"
           name="email"
           type="email"
           placeholder="Email"
           autoComplete="email"
-          autoCorrect="off"
-          spellCheck="false"
           value={email}
           onChange={handleEmailChange}
         />
         <FormInput
+          {...propsForInputs}
           id={props.passwordAutocomplete}
           name="password"
           type="password"
           placeholder="Пароль"
           autoComplete={props.passwordAutocomplete}
-          autoCorrect="off"
-          spellCheck="false"
           value={password}
           onChange={handlePasswordChange}
         />
