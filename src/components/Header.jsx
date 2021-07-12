@@ -19,7 +19,7 @@ const Header = memo(props => {
       break;
 
     case paths.register:
-      buttonTitle = pathNames.register.action;
+      buttonTitle = pathNames.login.action;
       break;
 
     default:
