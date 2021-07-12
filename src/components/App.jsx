@@ -3,8 +3,11 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import { paths } from '../utils/constants';
+
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import useStateWithBase64 from '../hooks/useStateWithBase64';
+import useEscapeHandler from '../hooks/useEscapeHandler';
+
 import api from '../api/api';
 import auth from '../api/auth';
 
@@ -144,19 +147,7 @@ function App(props) {
     closeAllPopups();
   }
 
-  const escHandler = React.useCallback(e => {
-    if (e.key === 'Escape') {
-      closeAllPopups();
-    }
-  }, []);
-
-  React.useEffect(() => {
-    const listenerArgs = ['keydown', escHandler, false];
-
-    document.addEventListener(...listenerArgs);
-
-    return () => document.removeEventListener(...listenerArgs);
-  }, [escHandler]);
+  useEscapeHandler(closeAllPopups);
 
   const handleLogin = React.useCallback(
     email => {

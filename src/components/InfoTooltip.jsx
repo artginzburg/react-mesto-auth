@@ -3,6 +3,8 @@ import { memo, useCallback } from 'react';
 import checkIcon from '../images/check.svg';
 import crossIcon from '../images/cross.svg';
 
+import useEscapeHandler from '../hooks/useEscapeHandler';
+
 import { popupSelectors } from '../utils/utils';
 
 import Popup from './Popup';
@@ -14,6 +16,8 @@ const InfoTooltip = memo(props => {
   const closeItself = useCallback(() => {
     setIsOpen(false);
   }, [setIsOpen]);
+
+  useEscapeHandler(closeItself);
 
   return (
     <Popup isOpen={isOpen} onClick={closeItself}>
