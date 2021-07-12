@@ -1,18 +1,22 @@
 import { memo } from 'react';
 
-import { author, repository } from '../../package.json';
+import { author } from '../../package.json';
+
+import { repo } from '../utils/pkg';
 
 const linkSeparator = '/';
 
-const homepageSplitted = repository.url.split(linkSeparator);
-homepageSplitted.pop();
+const repoSplitted = repo.split(linkSeparator);
+repoSplitted.pop();
 
-const copyrightLink = homepageSplitted.join(linkSeparator).split('+')[1];
+const copyrightLink = repoSplitted.join(linkSeparator);
+
+const yearOfBuild = new Date().getFullYear();
 
 const Footer = memo(() => (
   <footer className="footer">
     <a target="_blank" rel="noreferrer" href={copyrightLink} className="footer__copyright">
-      &copy; 2021 {author}
+      &copy; {yearOfBuild} {author}
     </a>
   </footer>
 ));

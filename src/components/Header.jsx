@@ -1,9 +1,8 @@
 import { memo } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-import { homepage } from '../../package.json';
-
 import { paths, pathNames } from '../utils/constants';
+import { repo } from '../utils/pkg';
 
 import logo from '../images/logo.svg';
 
@@ -35,7 +34,7 @@ const Header = memo(props => {
 
   return (
     <header className="header">
-      <a target="_self" href={homepage} className="logo header__logo">
+      <a target="_self" href={repo} className="logo header__logo">
         <img className="logo__img" alt="Mesto" src={logo} />
       </a>
       <div className="header__container">
