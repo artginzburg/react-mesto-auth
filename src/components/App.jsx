@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import { paths } from '../utils/constants';
+import { paths, appRoutePaths } from '../utils/constants';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import api from '../api/api';
 import auth from '../api/auth';
@@ -192,10 +192,10 @@ function App(props) {
     <>
       <Header credential={email} />
       <Switch>
-        <Route path={[paths.register, paths.login]}>
+        <Route path={[appRoutePaths.register, appRoutePaths.login]}>
           <Authentication handleLogin={handleLogin} />
         </Route>
-        <ProtectedRoute path={paths.main} loggedIn={loggedIn}>
+        <ProtectedRoute path={appRoutePaths.main} loggedIn={loggedIn}>
           <Main
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
