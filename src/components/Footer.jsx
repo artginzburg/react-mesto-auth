@@ -1,13 +1,13 @@
 import { memo } from 'react';
 
-import { author, homepage } from '../../package.json';
+import { author, repository } from '../../package.json';
 
 const linkSeparator = '/';
 
-const homepageSplitted = homepage.split(linkSeparator);
+const homepageSplitted = repository.url.split(linkSeparator);
 homepageSplitted.pop();
 
-const copyrightLink = homepageSplitted.join(linkSeparator);
+const copyrightLink = homepageSplitted.join(linkSeparator).split('+')[1];
 
 const Footer = memo(() => (
   <footer className="footer">
