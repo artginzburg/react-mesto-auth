@@ -4,6 +4,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 import { paths } from '../utils/constants';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
+import useStateWithBase64 from '../hooks/useStateWithBase64';
 import api from '../api/api';
 import auth from '../api/auth';
 
@@ -26,7 +27,7 @@ function App(props) {
   const currentUser = useCurrentUser();
 
   const [loggedIn, setLoggedIn] = React.useState(!!localStorage.token);
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = useStateWithBase64('email', '');
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -162,7 +163,7 @@ function App(props) {
       setEmail(email);
       setLoggedIn(true);
     },
-    [setLoggedIn]
+    [setEmail]
   );
 
   const handleTokenCheck = React.useCallback(() => {

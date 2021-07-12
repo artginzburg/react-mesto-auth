@@ -8,7 +8,7 @@ import Register from './Register';
 
 const Authentication = memo(props => {
   const states = {
-    email: useState(''),
+    email: useState(localStorage.email ? atob(JSON.parse(localStorage.email)) : ''),
     password: useState(''),
   };
 
