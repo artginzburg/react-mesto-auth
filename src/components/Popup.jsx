@@ -1,4 +1,5 @@
 import { useState, useEffect, memo } from 'react';
+import { createPortal } from 'react-dom';
 
 const POPUP_ANIMATION_DURATION = 300;
 
@@ -8,6 +9,8 @@ const defaults = {
   isOpened: false,
 };
 defaults.classNameOpened = `${defaults.className}_opened`;
+
+const modalRoot = document.getElementById('modal-root');
 
 const Popup = memo(props => {
   const [classNameForAnimation, setClassNameForAnimation] = useState(defaults.classNameClosed);
@@ -45,10 +48,11 @@ const Popup = memo(props => {
 
   const className = classNames.join(' ');
 
-  return (
+  return createPortal(
     <section onClick={props.onClick} className={className} id={props.id}>
       {props.children}
-    </section>
+    </section>,
+    modalRoot
   );
 });
 

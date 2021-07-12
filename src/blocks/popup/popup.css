@@ -7,8 +7,6 @@
   bottom: 0;
   left: 0;
 
-  overflow: scroll;
-
   margin: auto;
 
   max-width: calc(100vw - 19px*2);

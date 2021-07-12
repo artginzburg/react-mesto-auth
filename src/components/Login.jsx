@@ -17,6 +17,8 @@ const Login = memo(props => {
   const [email, setEmail] = props.states.email;
   const [password, setPassword] = props.states.password;
 
+  const setTooltipIsOpen = props.states.isPopupOpen[1];
+
   function handleSubmit() {
     if (!email || !password) {
       return;
@@ -35,7 +37,10 @@ const Login = memo(props => {
           props.history.push(paths.main);
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setTooltipIsOpen(true);
+        console.log(err);
+      });
   }
 
   return <LoginOrRegister onSubmit={handleSubmit} {...props} {...defaultProps} />;

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import Form from './Form';
 import FormInput from './FormInput';
+import InfoTooltip from './InfoTooltip';
 
 const propsForInputs = {
   autoCorrect: 'off',
@@ -53,6 +54,10 @@ const LoginOrRegister = memo(props => {
         </button>
       </Form>
       {props.children}
+      <InfoTooltip
+        isOpenState={props.states.isPopupOpen}
+        isSuccessState={props.states.isPopupSuccess}
+      />
     </div>
   );
 });

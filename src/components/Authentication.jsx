@@ -10,6 +10,8 @@ const Authentication = memo(props => {
   const states = {
     email: useState(localStorage.email ? atob(JSON.parse(localStorage.email)) : ''),
     password: useState(''),
+    isPopupOpen: useState(false),
+    isPopupSuccess: useState(false),
   };
 
   const pathIsLogin = props.location.pathname === paths.login;

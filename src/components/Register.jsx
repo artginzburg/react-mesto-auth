@@ -17,12 +17,22 @@ const Register = memo(props => {
   const [email] = props.states.email;
   const [password] = props.states.password;
 
+  const setTooltipIsOpen = props.states.isPopupOpen[1];
+  const setTooltipIsSuccess = props.states.isPopupSuccess[1];
+
   function handleSubmit() {
-    auth.register(email, password).then(res => {
-      if (res.statusCode !== 400) {
+    auth
+      .register(email, password)
+      .then(() => {
         props.history.push(paths.login);
-      }
-    });
+        setTooltipIsSuccess(true);
+        setTooltipIsOpen(true);
+      })
+      .catch(err => {
+        setTooltipIsSuccess(false);
+        setTooltipIsOpen(true);
+        console.log(err);
+      });
   }
 
   return (
