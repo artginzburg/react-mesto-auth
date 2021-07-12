@@ -1,21 +1,9 @@
 export const apiDomain = 'nomoreparties.co';
 
-const relativePaths = {
+export const paths = {
   login: '/login',
   register: '/register',
   main: '/',
-};
-
-export const paths = {
-  login: process.env.PUBLIC_URL + relativePaths.login,
-  register: process.env.PUBLIC_URL + relativePaths.register,
-  main: process.env.PUBLIC_URL + relativePaths.main,
-};
-
-export const appRoutePaths = {
-  login: `*${relativePaths.login}`,
-  register: `*${relativePaths.register}`,
-  main: `*${relativePaths.main}`,
 };
 
 export const pathNames = {

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-import { paths, appRoutePaths } from '../utils/constants';
+import { paths } from '../utils/constants';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import api from '../api/api';
 import auth from '../api/auth';
@@ -21,8 +21,6 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import ImagePopup from './ImagePopup';
-
-console.log(`${process.env.GITHUB_REPOSITORY}@${process.env.GITHUB_SHA}`);
 
 function App(props) {
   const currentUser = useCurrentUser();
@@ -194,12 +192,10 @@ function App(props) {
     <>
       <Header credential={email} />
       <Switch>
-        <Route path={[appRoutePaths.register, appRoutePaths.login]}>
-          {console.log('Route matches register or login')}
+        <Route path={[paths.register, paths.login]}>
           <Authentication handleLogin={handleLogin} />
         </Route>
-        <ProtectedRoute exact path={appRoutePaths.main} loggedIn={loggedIn}>
-          {console.log('Route is Protected')}
+        <ProtectedRoute path={paths.main} loggedIn={loggedIn}>
           <Main
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -237,10 +233,6 @@ function App(props) {
 
           <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={handlePopupClick} />
         </ProtectedRoute>
-        <Route path="/">
-          {console.log('Route is last in Switch ("default")')}
-          <Redirect to={paths.main} />
-        </Route>
       </Switch>
       <Footer />
     </>
