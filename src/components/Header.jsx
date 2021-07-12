@@ -1,34 +1,36 @@
 import { memo } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-import logo from '../images/logo.svg';
-
 import { homepage } from '../../package.json';
+
+import { paths, pathNames } from '../utils/constants';
+
+import logo from '../images/logo.svg';
 
 const Header = memo(props => {
   let buttonTitle;
-  let buttonLink = '/login';
+  let buttonLink = paths.login;
   let loggedIn = false;
 
   switch (props.location.pathname) {
-    case '/login':
-      buttonTitle = 'Регистрация';
-      buttonLink = '/register';
+    case paths.login:
+      buttonTitle = pathNames.register.title;
+      buttonLink = paths.register;
       break;
 
-    case '/register':
-      buttonTitle = 'Войти';
+    case paths.register:
+      buttonTitle = pathNames.register.action;
       break;
 
     default:
-      buttonTitle = 'Выйти';
+      buttonTitle = pathNames.quit.action;
       loggedIn = true;
       break;
   }
 
   function signOut() {
     delete localStorage.token;
-    props.history.push('/login');
+    props.history.push(paths.login);
   }
 
   return (

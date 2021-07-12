@@ -1,14 +1,16 @@
 import { memo } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
+import { paths, pathNames } from '../utils/constants';
+
 import auth from '../api/auth';
 
 import LoginOrRegister from './LoginOrRegister';
 
 const defaultProps = {
   passwordAutocomplete: 'new-password',
-  title: 'Регистрация',
-  buttonTitle: 'Зарегистрироваться',
+  title: pathNames.register.title,
+  buttonTitle: pathNames.register.action,
 };
 
 const Register = memo(props => {
@@ -18,7 +20,7 @@ const Register = memo(props => {
   function handleSubmit() {
     auth.register(email, password).then(res => {
       if (res.statusCode !== 400) {
-        props.history.push('/login');
+        props.history.push(paths.login);
       }
     });
   }
@@ -27,8 +29,8 @@ const Register = memo(props => {
     <LoginOrRegister onSubmit={handleSubmit} {...props} {...defaultProps}>
       <div className="auth__signin">
         Уже зарегистрированы?{' '}
-        <Link to="/login" className="auth__login-link">
-          Войти
+        <Link to={paths.login} className="auth__login-link">
+          {pathNames.login.action}
         </Link>
       </div>
     </LoginOrRegister>

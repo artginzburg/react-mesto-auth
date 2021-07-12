@@ -28,7 +28,7 @@ class Auth extends Api {
   getUserInfo() {
     this._constructAuthorization();
 
-    return this._customFetch(api.endpoints.user);
+    return this._customFetch(api.endpoints.user).then(res => res.data);
   }
 }
 

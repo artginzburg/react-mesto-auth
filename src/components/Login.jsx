@@ -1,14 +1,16 @@
 import { memo } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import { paths, pathNames } from '../utils/constants';
+
 import auth from '../api/auth';
 
 import LoginOrRegister from './LoginOrRegister';
 
 const defaultProps = {
   passwordAutocomplete: 'current-password',
-  title: 'Вход',
-  buttonTitle: 'Войти',
+  title: pathNames.login.title,
+  buttonTitle: pathNames.login.action,
 };
 
 const Login = memo(props => {
@@ -30,7 +32,7 @@ const Login = memo(props => {
           localStorage.token = data.token;
 
           props.handleLogin(email);
-          props.history.push('/');
+          props.history.push(paths.main);
         }
       })
       .catch(err => console.log(err));

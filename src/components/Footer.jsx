@@ -1,15 +1,17 @@
 import { memo } from 'react';
 
-import { author } from '../../package.json';
+import { author, homepage } from '../../package.json';
+
+const linkSeparator = '/';
+
+const homepageSplitted = homepage.split(linkSeparator);
+homepageSplitted.pop();
+
+const copyrightLink = homepageSplitted.join(linkSeparator);
 
 const Footer = memo(() => (
   <footer className="footer">
-    <a
-      target="_blank"
-      rel="noreferrer"
-      href="https://github.com/artginzburg"
-      className="footer__copyright"
-    >
+    <a target="_blank" rel="noreferrer" href={copyrightLink} className="footer__copyright">
       &copy; 2021 {author}
     </a>
   </footer>
