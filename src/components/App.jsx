@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import { paths, appRoutePaths } from '../utils/constants';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
@@ -195,7 +195,7 @@ function App(props) {
         <Route path={[appRoutePaths.register, appRoutePaths.login]}>
           <Authentication handleLogin={handleLogin} />
         </Route>
-        <ProtectedRoute path={appRoutePaths.main} loggedIn={loggedIn}>
+        <ProtectedRoute exact path={appRoutePaths.main} loggedIn={loggedIn}>
           <Main
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -233,6 +233,9 @@ function App(props) {
 
           <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={handlePopupClick} />
         </ProtectedRoute>
+        <Route path="/">
+          <Redirect to={paths.main} />
+        </Route>
       </Switch>
       <Footer />
     </>
