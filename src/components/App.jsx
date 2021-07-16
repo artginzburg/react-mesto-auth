@@ -30,7 +30,7 @@ function App() {
   const currentUser = useCurrentUser();
   const history = useHistory();
 
-  const [loggedIn, setLoggedIn] = React.useState(!!localStorage.token);
+  const [loggedIn, setLoggedIn] = useStateWithLocalStorage('loggedIn', false);
   const [email, setEmail] = useStateWithBase64('email', '');
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -88,7 +88,7 @@ function App() {
 
       api.deleteCard(card._id).catch((error) => {
         setCards(oldCards);
-        throw error;
+        console.log('Couldnt delete card on the server', error);
       });
 
       closeAllPopups();
@@ -155,7 +155,7 @@ function App() {
       setEmail(email);
       setLoggedIn(true);
     },
-    [setEmail]
+    [setEmail, setLoggedIn]
   );
 
   const handleTokenCheck = React.useCallback(() => {
@@ -175,7 +175,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [handleLogin, history]);
+  }, [handleLogin, history, setLoggedIn]);
 
   React.useEffect(() => {
     handleTokenCheck();

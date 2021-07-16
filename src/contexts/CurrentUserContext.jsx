@@ -19,7 +19,7 @@ function CurrentUserProvider({ children }) {
     api
       .getUserInfo()
       .then(setCurrentUser)
-      .catch(err => console.log('Couldnt get user info from the server', err));
+      .catch((err) => console.log('Couldnt get user info from the server', err));
   }, [setCurrentUser]);
 
   return (
@@ -62,7 +62,7 @@ async function sendApiUpdate(dispatch, user, updates, func) {
     }
   } catch (error) {
     dispatch(user);
-    throw error;
+    console.log('Couldnt update user information on the server', error);
   }
 }
 
