@@ -1,26 +1,15 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 import checkIcon from '../images/check.svg';
 import crossIcon from '../images/cross.svg';
-
-import useEscapeHandler from '../hooks/useEscapeHandler';
 
 import { popupSelectors } from '../utils/utils';
 
 import Popup from './Popup';
 
-const InfoTooltip = memo(props => {
-  const [isOpen, setIsOpen] = props.isOpenState;
-  const [isSuccess] = props.isSuccessState;
-
-  const closeItself = useCallback(() => {
-    setIsOpen(false);
-  }, [setIsOpen]);
-
-  useEscapeHandler(closeItself);
-
+const InfoTooltip = memo(({ isSuccess, ...props }) => {
   return (
-    <Popup isOpen={isOpen} onClick={closeItself}>
+    <Popup isOpen={props.isOpen} onClick={props.onClose}>
       <div className="popup__container">
         <button type="button" className={popupSelectors.closeButtonClass} />
 

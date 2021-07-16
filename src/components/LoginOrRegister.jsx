@@ -4,12 +4,16 @@ import { formClassesConfig } from '../utils/utils';
 
 import Form from './Form';
 import FormInput from './FormInput';
-import InfoTooltip from './InfoTooltip';
 
 const propsForInputs = {
   autoCorrect: 'off',
   spellCheck: false,
   className: `${formClassesConfig.inputClass}_theme_dark`,
+};
+
+const inputNames = {
+  email: 'email',
+  password: 'password',
 };
 
 const LoginOrRegister = memo((props) => {
@@ -24,27 +28,36 @@ const LoginOrRegister = memo((props) => {
     setPassword(e.target.value);
   };
 
+  function handleSubmit(e) {
+    props.handleSubmit(e, email, password);
+  }
+
+  function handleReset() {
+    setEmail('');
+    setPassword('');
+  }
+
   return (
     <div className="auth">
       <h2 className="auth__title">{props.title}</h2>
 
-      <Form onSubmit={props.onSubmit} className={formClassesConfig.formClass}>
+      <Form onSubmit={handleSubmit} onReset={handleReset} className={formClassesConfig.formClass}>
         <FormInput
           {...propsForInputs}
           autoFocus
-          id="email"
-          name="email"
-          type="email"
+          id={inputNames.email}
+          name={inputNames.email}
+          type={inputNames.email}
           placeholder="Email"
-          autoComplete="email"
+          autoComplete={inputNames.email}
           value={email}
           onChange={handleEmailChange}
         />
         <FormInput
           {...propsForInputs}
           id={props.passwordAutocomplete}
-          name="password"
-          type="password"
+          name={inputNames.password}
+          type={inputNames.password}
           placeholder="Пароль"
           autoComplete={props.passwordAutocomplete}
           value={password}
@@ -58,10 +71,6 @@ const LoginOrRegister = memo((props) => {
         </button>
       </Form>
       {props.children}
-      <InfoTooltip
-        isOpenState={props.states.isPopupOpen}
-        isSuccessState={props.states.isPopupSuccess}
-      />
     </div>
   );
 });

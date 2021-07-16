@@ -1,26 +1,28 @@
 import { memo, useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 import { paths } from '../utils/constants';
+
+import { parseFixedLocalBase64Value } from '../hooks/useStateWithBase64';
 
 import Login from './Login';
 import Register from './Register';
 
 const Authentication = memo((props) => {
   const states = {
-    email: useState(localStorage.email ? atob(JSON.parse(localStorage.email)) : ''),
+    email: useState(parseFixedLocalBase64Value('email') ?? ''),
     password: useState(''),
-    isPopupOpen: useState(false),
-    isPopupSuccess: useState(false),
   };
 
-  return (
+  return props.loggedIn ? (
+    <Redirect to={paths.main} />
+  ) : (
     <>
       <Route path={paths.login}>
         <Login handleLogin={props.handleLogin} states={states} />
       </Route>
       <Route path={paths.register}>
-        <Register states={states} />
+        <Register handleRegister={props.handleRegister} states={states} />
       </Route>
     </>
   );

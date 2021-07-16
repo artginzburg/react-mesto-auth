@@ -11,7 +11,7 @@ import useEscapeHandler from '../hooks/useEscapeHandler';
 import api from '../api/api';
 import auth from '../api/auth';
 
-import { useCurrentUser } from '../contexts/CurrentUserContext';
+import { CurrentUserProvider, defaultUserState } from '../contexts/CurrentUserContext';
 
 import Authentication from './Authentication';
 import ProtectedRoute from './ProtectedRoute';
@@ -25,10 +25,11 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import ImagePopup from './ImagePopup';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
-  const currentUser = useCurrentUser();
   const history = useHistory();
+  const [currentUser, setCurrentUser] = useStateWithLocalStorage('currentUser', defaultUserState);
 
   const [loggedIn, setLoggedIn] = useStateWithLocalStorage('loggedIn', false);
   const [email, setEmail] = useStateWithBase64('email', '');
@@ -38,10 +39,20 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+
+  const [isInfoTooltipSuccess, setIsInfoTooltipSuccess] = React.useState(false);
 
   const [selectedCard, setSelectedCard] = React.useState({});
 
   const [cards, setCards] = useStateWithLocalStorage('cards', []);
+
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then(setCurrentUser)
+      .catch((err) => console.log('Couldnt get user info from the server', err));
+  }, [setCurrentUser]);
 
   React.useEffect(() => {
     api
@@ -78,6 +89,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsConfirmDeletePopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsInfoTooltipOpen(false);
   }
 
   const handleCardDelete = React.useCallback(
@@ -177,16 +189,64 @@ function App() {
     }
   }, [handleLogin, history, setLoggedIn]);
 
+  function handleSubmitRegister(e_, email, password) {
+    auth
+      .register(email, password)
+      .then(() => {
+        history.replace(paths.login);
+        setIsInfoTooltipSuccess(true);
+      })
+      .catch((err) => {
+        setIsInfoTooltipSuccess(false);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsInfoTooltipOpen(true);
+      });
+  }
+
+  function handleSubmitLogin(e, email, password) {
+    if (!email || !password) {
+      return;
+    }
+
+    auth
+      .login(email, password)
+      .then((data) => {
+        if (data.token) {
+          e.target.reset();
+
+          localStorage.token = data.token;
+
+          handleLogin(email);
+          history.push(paths.main);
+        }
+      })
+      .catch((err) => {
+        setIsInfoTooltipOpen(true);
+        console.log(err);
+      });
+  }
+
   React.useEffect(() => {
     handleTokenCheck();
   }, [handleTokenCheck]);
 
   return (
-    <>
+    <CurrentUserProvider state={currentUser} dispatch={setCurrentUser}>
       <Header credential={email} loggedIn={[loggedIn, setLoggedIn]} />
       <Switch>
         <Route path={[paths.register, paths.login]}>
-          <Authentication handleLogin={handleLogin} />
+          <Authentication
+            loggedIn={loggedIn}
+            handleLogin={handleSubmitLogin}
+            handleRegister={handleSubmitRegister}
+          />
+          <InfoTooltip
+            isOpen={isInfoTooltipOpen}
+            isSuccess={isInfoTooltipSuccess}
+            onClose={handlePopupClick}
+          />
         </Route>
         <ProtectedRoute path={paths.main} loggedIn={loggedIn}>
           <Main
@@ -228,7 +288,7 @@ function App() {
         </ProtectedRoute>
       </Switch>
       <Footer />
-    </>
+    </CurrentUserProvider>
   );
 }
 

@@ -41,6 +41,8 @@ In the project directory, you can run:
 
 - Ideas (sorted by concern)
 
+  - [ ] Make InfoTooltip image unclickable
+  - [ ] Try passing down less of `loggedIn` state
   - [ ] Make form validation "Reactive"
   - [ ] Add locales and English language
   - [x] Remove excessive `withRouter()`s
