@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { paths, pathNames } from '../utils/constants';
 
@@ -13,7 +13,9 @@ const defaultProps = {
   buttonTitle: pathNames.login.action,
 };
 
-const Login = memo(props => {
+const Login = memo((props) => {
+  const history = useHistory();
+
   const [email, setEmail] = props.states.email;
   const [password, setPassword] = props.states.password;
 
@@ -26,7 +28,7 @@ const Login = memo(props => {
 
     auth
       .login(email, password)
-      .then(data => {
+      .then((data) => {
         if (data.token) {
           setEmail('');
           setPassword('');
@@ -34,10 +36,10 @@ const Login = memo(props => {
           localStorage.token = data.token;
 
           props.handleLogin(email);
-          props.history.push(paths.main);
+          history.push(paths.main);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setTooltipIsOpen(true);
         console.log(err);
       });
@@ -46,4 +48,4 @@ const Login = memo(props => {
   return <LoginOrRegister onSubmit={handleSubmit} {...props} {...defaultProps} />;
 });
 
-export default withRouter(Login);
+export default Login;

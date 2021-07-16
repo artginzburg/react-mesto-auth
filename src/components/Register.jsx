@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { paths, pathNames } from '../utils/constants';
 
@@ -13,7 +13,9 @@ const defaultProps = {
   buttonTitle: pathNames.register.action,
 };
 
-const Register = memo(props => {
+const Register = memo((props) => {
+  const history = useHistory();
+
   const [email] = props.states.email;
   const [password] = props.states.password;
 
@@ -24,11 +26,11 @@ const Register = memo(props => {
     auth
       .register(email, password)
       .then(() => {
-        props.history.push(paths.login);
+        history.push(paths.login);
         setTooltipIsSuccess(true);
         setTooltipIsOpen(true);
       })
-      .catch(err => {
+      .catch((err) => {
         setTooltipIsSuccess(false);
         setTooltipIsOpen(true);
         console.log(err);
@@ -47,4 +49,4 @@ const Register = memo(props => {
   );
 });
 
-export default withRouter(Register);
+export default Register;

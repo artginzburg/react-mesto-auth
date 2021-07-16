@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { withRouter } from 'react-router-dom';
 
 import Form from './Form';
 import FormInput from './FormInput';
@@ -11,15 +10,15 @@ const propsForInputs = {
   className: 'form__input_theme_dark',
 };
 
-const LoginOrRegister = memo(props => {
+const LoginOrRegister = memo((props) => {
   const [email, setEmail] = props.states.email;
   const [password, setPassword] = props.states.password;
 
-  const handleEmailChange = e => {
+  const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
-  const handlePasswordChange = e => {
+  const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
@@ -62,4 +61,4 @@ const LoginOrRegister = memo(props => {
   );
 });
 
-export default withRouter(LoginOrRegister);
+export default LoginOrRegister;

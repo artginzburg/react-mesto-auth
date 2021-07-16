@@ -1,17 +1,20 @@
 import { memo } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import { paths, pathNames } from '../utils/constants';
 import { repo } from '../utils/pkg';
 
 import logo from '../images/logo.svg';
 
-const Header = memo(props => {
+const Header = memo((props) => {
+  const history = useHistory();
+  const location = useLocation();
+
   let buttonTitle;
   let buttonLink = paths.login;
   let loggedIn = false;
 
-  switch (props.location.pathname) {
+  switch (location.pathname) {
     case paths.login:
       buttonTitle = pathNames.register.title;
       buttonLink = paths.register;
@@ -29,7 +32,7 @@ const Header = memo(props => {
 
   function signOut() {
     delete localStorage.token;
-    props.history.push(paths.login);
+    history.push(paths.login);
   }
 
   return (
@@ -53,4 +56,4 @@ const Header = memo(props => {
   );
 });
 
-export default withRouter(Header);
+export default Header;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { paths } from '../utils/constants';
 
@@ -28,6 +28,7 @@ import ImagePopup from './ImagePopup';
 
 function App(props) {
   const currentUser = useCurrentUser();
+  const history = useHistory();
 
   const [loggedIn, setLoggedIn] = React.useState(!!localStorage.token);
   const [email, setEmail] = useStateWithBase64('email', '');
@@ -46,25 +47,25 @@ function App(props) {
     api
       .getInitialCards()
       .then(setCards)
-      .catch(err => console.log('Couldnt get initial cards from the server', err));
+      .catch((err) => console.log('Couldnt get initial cards from the server', err));
   }, [setCards]);
 
   async function handleCardLike(card) {
     const oldCards = cards;
 
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     const expectedCardLikes = isLiked
-      ? card.likes.filter(like => like._id !== currentUser._id)
+      ? card.likes.filter((like) => like._id !== currentUser._id)
       : [...card.likes, currentUser];
 
     const expectedCard = { ...card, likes: expectedCardLikes };
 
-    setCards(cards.map(c => (c._id === card._id ? expectedCard : c)));
+    setCards(cards.map((c) => (c._id === card._id ? expectedCard : c)));
 
     try {
       const newCard = await api.changeLikeCardStatus(card._id, !isLiked);
-      setCards(cards.map(c => (c._id === card._id ? newCard : c)));
+      setCards(cards.map((c) => (c._id === card._id ? newCard : c)));
     } catch (error) {
       setCards(oldCards);
       console.error(error);
@@ -80,12 +81,12 @@ function App(props) {
   }
 
   const handleCardDelete = React.useCallback(
-    card => {
+    (card) => {
       const oldCards = cards;
 
-      setCards(cards.filter(c => c._id !== card._id));
+      setCards(cards.filter((c) => c._id !== card._id));
 
-      api.deleteCard(card._id).catch(error => {
+      api.deleteCard(card._id).catch((error) => {
         setCards(oldCards);
         throw error;
       });
@@ -119,7 +120,7 @@ function App(props) {
     setIsImagePopupOpen(true);
   }
 
-  const handlePopupClick = React.useCallback(e => {
+  const handlePopupClick = React.useCallback((e) => {
     if (e.target === e.currentTarget) {
       closeAllPopups();
     }
@@ -141,7 +142,7 @@ function App(props) {
 
     api
       .addCard(title, link)
-      .then(newCard => setCards([newCard, ...cards]))
+      .then((newCard) => setCards([newCard, ...cards]))
       .catch(() => setCards(oldCards));
 
     closeAllPopups();
@@ -150,7 +151,7 @@ function App(props) {
   useEscapeHandler(closeAllPopups);
 
   const handleLogin = React.useCallback(
-    email => {
+    (email) => {
       setEmail(email);
       setLoggedIn(true);
     },
@@ -162,19 +163,19 @@ function App(props) {
       auth.token = localStorage.token;
       auth
         .getUserInfo()
-        .then(res => {
+        .then((res) => {
           if (res) {
             handleLogin(res.email);
-            props.history.push(paths.main);
+            history.push(paths.main);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           setLoggedIn(false);
 
           console.log(err);
         });
     }
-  }, [handleLogin, props.history]);
+  }, [handleLogin, history]);
 
   React.useEffect(() => {
     handleTokenCheck();
@@ -231,4 +232,4 @@ function App(props) {
   );
 }
 
-export default withRouter(App);
+export default App;

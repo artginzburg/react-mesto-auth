@@ -41,9 +41,9 @@ In the project directory, you can run:
 
 - Ideas (sorted by concern)
 
-  - [ ] Remove excessive `withRouter()`s
   - [ ] Make form validation "Reactive"
   - [ ] Add locales and English language
+  - [x] Remove excessive `withRouter()`s
   - [x] Move popups to React.createPortal and other container
 
 ## Tech

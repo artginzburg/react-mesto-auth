@@ -1,12 +1,14 @@
 import { memo, useState } from 'react';
-import { withRouter } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import { paths } from '../utils/constants';
 
 import Login from './Login';
 import Register from './Register';
 
-const Authentication = memo(props => {
+const Authentication = memo((props) => {
+  const location = useLocation();
+
   const states = {
     email: useState(localStorage.email ? atob(JSON.parse(localStorage.email)) : ''),
     password: useState(''),
@@ -14,7 +16,7 @@ const Authentication = memo(props => {
     isPopupSuccess: useState(false),
   };
 
-  const pathIsLogin = props.location.pathname === paths.login;
+  const pathIsLogin = location.pathname === paths.login;
 
   return pathIsLogin ? (
     <Login handleLogin={props.handleLogin} states={states} />
@@ -23,4 +25,4 @@ const Authentication = memo(props => {
   );
 });
 
-export default withRouter(Authentication);
+export default Authentication;
