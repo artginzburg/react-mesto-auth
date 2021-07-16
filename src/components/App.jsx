@@ -166,7 +166,7 @@ function App() {
         .then((res) => {
           if (res) {
             handleLogin(res.email);
-            history.push(paths.main);
+            history.replace(paths.main);
           }
         })
         .catch((err) => {

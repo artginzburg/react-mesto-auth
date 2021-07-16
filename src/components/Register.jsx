@@ -26,7 +26,7 @@ const Register = memo((props) => {
     auth
       .register(email, password)
       .then(() => {
-        history.push(paths.login);
+        history.replace(paths.login);
         setTooltipIsSuccess(true);
         setTooltipIsOpen(true);
       })

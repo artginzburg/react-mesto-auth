@@ -32,7 +32,7 @@ const Header = memo((props) => {
 
   function signOut() {
     delete localStorage.token;
-    history.push(paths.login);
+    history.replace(paths.login);
   }
 
   return (
