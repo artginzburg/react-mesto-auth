@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect } from 'react';
 
-import { popupSelectors } from '../utils/utils';
+import { popupSelectors, formClassesConfig } from '../utils/utils';
 import enableValidation from '../utils/enableValidation';
 import { defaultFormConfig } from '../utils/utils';
 
@@ -9,14 +9,14 @@ import Form from './Form';
 
 const defaultButtonTitle = 'Сохранить';
 
-const PopupWithForm = memo(props => {
+const PopupWithForm = memo((props) => {
   const { onSubmit, children, ...propsWithoutCustom } = props;
   props = propsWithoutCustom;
 
   const buttonTitle = props.buttonTitle ?? defaultButtonTitle;
 
   const handleSubmit = useCallback(
-    e => {
+    (e) => {
       onSubmit && onSubmit(e);
 
       if (children) {
@@ -46,9 +46,13 @@ const PopupWithForm = memo(props => {
         <button type="reset" className={popupSelectors.closeButtonClass} />
         <h2 className="popup__title">{props.title}</h2>
 
-        <Form className="form" onSubmit={handleSubmit} onReset={props.onReset}>
+        <Form
+          className={formClassesConfig.formClass}
+          onSubmit={handleSubmit}
+          onReset={props.onReset}
+        >
           {children}
-          <button type="submit" className="popup__button form__button">
+          <button type="submit" className={`popup__button ${formClassesConfig.submitButtonClass}`}>
             {buttonTitle}
           </button>
         </Form>

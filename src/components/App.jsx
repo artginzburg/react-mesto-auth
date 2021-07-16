@@ -26,7 +26,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import ImagePopup from './ImagePopup';
 
-function App(props) {
+function App() {
   const currentUser = useCurrentUser();
   const history = useHistory();
 

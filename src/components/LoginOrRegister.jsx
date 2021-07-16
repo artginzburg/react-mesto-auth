@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import { formClassesConfig } from '../utils/utils';
+
 import Form from './Form';
 import FormInput from './FormInput';
 import InfoTooltip from './InfoTooltip';
@@ -7,7 +9,7 @@ import InfoTooltip from './InfoTooltip';
 const propsForInputs = {
   autoCorrect: 'off',
   spellCheck: false,
-  className: 'form__input_theme_dark',
+  className: `${formClassesConfig.inputClass}_theme_dark`,
 };
 
 const LoginOrRegister = memo((props) => {
@@ -26,7 +28,7 @@ const LoginOrRegister = memo((props) => {
     <div className="auth">
       <h2 className="auth__title">{props.title}</h2>
 
-      <Form onSubmit={props.onSubmit} className="form">
+      <Form onSubmit={props.onSubmit} className={formClassesConfig.formClass}>
         <FormInput
           {...propsForInputs}
           autoFocus
@@ -48,7 +50,10 @@ const LoginOrRegister = memo((props) => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button type="submit" className="auth__button form__button form__button_theme_dark">
+        <button
+          type="submit"
+          className={`auth__button ${formClassesConfig.submitButtonClass} ${formClassesConfig.submitButtonClass}_theme_dark`}
+        >
           {props.buttonTitle}
         </button>
       </Form>

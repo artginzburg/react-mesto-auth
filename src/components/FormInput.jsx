@@ -1,5 +1,7 @@
 import { forwardRef, createRef, useEffect } from 'react';
 
+import { formClassesConfig } from '../utils/utils';
+
 const defaults = {
   type: 'text',
   required: true,
@@ -42,7 +44,9 @@ const PopupInput = forwardRef((props, forwardedRef) => {
     <>
       <input
         {...inputProps}
-        className={`form__input${inputProps.className ? ` ${inputProps.className}` : ''}`}
+        className={`${formClassesConfig.inputClass}${
+          inputProps.className ? ` ${inputProps.className}` : ''
+        }`}
         {...finalProps}
       />
       <p className="form__error" id={`${props.id}-error`} />
