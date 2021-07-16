@@ -20,6 +20,7 @@
 @import url(./blocks/auth/__login-link/auth__login-link.css);
 
 @import url(./blocks/info-tooltip/info-tooltip.css);
+@import url(./blocks/info-tooltip/__icon/info-tooltip__icon.css);
 @import url(./blocks/info-tooltip/__title/info-tooltip__title.css);
 
 @import url(./blocks/form/form.css);

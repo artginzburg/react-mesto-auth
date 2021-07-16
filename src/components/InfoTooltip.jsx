@@ -7,6 +7,8 @@ import { popupSelectors } from '../utils/utils';
 
 import Popup from './Popup';
 
+const backgroundImageUrl = (url) => ({ backgroundImage: `url(${url})` });
+
 const InfoTooltip = memo(({ isSuccess, ...props }) => {
   return (
     <Popup isOpen={props.isOpen} onClick={props.onClose}>
@@ -14,7 +16,10 @@ const InfoTooltip = memo(({ isSuccess, ...props }) => {
         <button type="button" className={popupSelectors.closeButtonClass} />
 
         <div className="info-tooltip">
-          <img alt="Иконка" src={isSuccess ? checkIcon : crossIcon} />
+          <div
+            className="info-tooltip__icon"
+            style={backgroundImageUrl(isSuccess ? checkIcon : crossIcon)}
+          />
           <h3 className="info-tooltip__title">
             {isSuccess
               ? 'Вы успешно зарегистрировались!'

@@ -41,10 +41,10 @@ In the project directory, you can run:
 
 - Ideas (sorted by concern)
 
-  - [ ] Make InfoTooltip image unclickable
   - [ ] Try passing down less of `loggedIn` state
   - [ ] Make form validation "Reactive"
   - [ ] Add locales and English language
+  - [x] Make InfoTooltip image unclickable
   - [x] Remove excessive `withRouter()`s
   - [x] Move popups to React.createPortal and other container
 
