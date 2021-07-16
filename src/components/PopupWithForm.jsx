@@ -9,10 +9,7 @@ import Form from './Form';
 
 const defaultButtonTitle = 'Сохранить';
 
-const PopupWithForm = memo((props) => {
-  const { onSubmit, children, ...propsWithoutCustom } = props;
-  props = propsWithoutCustom;
-
+const PopupWithForm = memo(({ onSubmit, children, ...props }) => {
   const buttonTitle = props.buttonTitle ?? defaultButtonTitle;
 
   const handleSubmit = useCallback(

@@ -1,6 +1,8 @@
 import { useState, useEffect, memo } from 'react';
 import { createPortal } from 'react-dom';
 
+import { classNames } from '../utils/toClassNames';
+
 const POPUP_ANIMATION_DURATION = 300;
 
 const defaults = {
@@ -12,16 +14,16 @@ defaults.classNameOpened = `${defaults.className}_opened`;
 
 const modalRoot = document.getElementById('modal-root');
 
-const Popup = memo(props => {
+const Popup = memo(({ isOpen, ...props }) => {
   const [classNameForAnimation, setClassNameForAnimation] = useState(defaults.classNameClosed);
   const [shouldAppearInDOM, setShouldAppearInDOM] = useState(defaults.isOpened);
 
   useEffect(() => {
-    if (!props.isOpen) {
+    if (!isOpen) {
       document.activeElement.blur(); // fixes mobile keyboard being stuck on the screen after form submission (due to `event.preventDefault()`)
     }
 
-    if (props.isOpen) {
+    if (isOpen) {
       setShouldAppearInDOM(!defaults.isOpened);
       const showingTimout = setTimeout(() => {
         setClassNameForAnimation(defaults.classNameOpened);
@@ -36,20 +38,16 @@ const Popup = memo(props => {
 
       return () => clearTimeout(hidingTimeout);
     }
-  }, [props.isOpen]);
+  }, [isOpen]);
 
   if (!shouldAppearInDOM) {
     return null;
   }
 
-  const classNames = [defaults.className, props.className, classNameForAnimation].filter(
-    el => el != null && el !== ''
-  );
-
-  const className = classNames.join(' ');
+  const popupClassNames = [defaults.className, props.className, classNameForAnimation];
 
   return createPortal(
-    <section onClick={props.onClick} className={className} id={props.id}>
+    <section onClick={props.onClick} {...classNames(popupClassNames)} id={props.id}>
       {props.children}
     </section>,
     modalRoot

@@ -19,10 +19,10 @@ const Authentication = memo((props) => {
   ) : (
     <>
       <Route path={paths.login}>
-        <Login handleLogin={props.handleLogin} states={states} />
+        <Login handleSubmit={props.handleLogin} states={states} />
       </Route>
       <Route path={paths.register}>
-        <Register handleRegister={props.handleRegister} states={states} />
+        <Register handleSubmit={props.handleRegister} states={states} />
       </Route>
     </>
   );

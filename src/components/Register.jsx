@@ -12,7 +12,7 @@ const defaultProps = {
 };
 
 const Register = memo((props) => (
-  <LoginOrRegister handleSubmit={props.handleRegister} {...props} {...defaultProps}>
+  <LoginOrRegister {...props} {...defaultProps}>
     <div className="auth__signin">
       Уже зарегистрированы?{' '}
       <Link to={paths.login} className="auth__login-link">

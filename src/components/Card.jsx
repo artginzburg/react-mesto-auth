@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import { classNames } from '../utils/toClassNames';
+
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 const defaults = {
@@ -7,9 +9,7 @@ const defaults = {
   cardLikeButtonClassName: 'element__like-button',
 };
 
-const Card = memo(props => {
-  const { card } = props;
-
+const Card = memo(({ card, ...props }) => {
   card.likes = card.likes ?? [];
 
   const currentUser = useCurrentUser();
@@ -18,25 +18,19 @@ const Card = memo(props => {
     card.owner = currentUser;
   }
 
-  const cardDeleteButtonClassNames = [defaults.cardDeleteButtonClassName];
-
   const isOwn = card.owner._id === currentUser._id;
-  if (isOwn) {
-    const cardDeleteButtonClassNameAttrubited = `${defaults.cardDeleteButtonClassName}_visible`;
-    cardDeleteButtonClassNames.push(cardDeleteButtonClassNameAttrubited);
-  }
 
-  const cardDeleteButtonFinalClassName = cardDeleteButtonClassNames.join(' ');
+  const cardDeleteButtonClassNames = [
+    defaults.cardDeleteButtonClassName,
+    isOwn && `${defaults.cardDeleteButtonClassName}_visible`,
+  ];
 
-  const cardLikeButtonClassNames = [defaults.cardLikeButtonClassName];
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-  const isLiked = card.likes.some(i => i._id === currentUser._id);
-  if (isLiked) {
-    const cardLikeButtonClassNameAttributed = `${defaults.cardLikeButtonClassName}_active`;
-    cardLikeButtonClassNames.push(cardLikeButtonClassNameAttributed);
-  }
-
-  const cardLikeButtonFinalClassName = cardLikeButtonClassNames.join(' ');
+  const cardLikeButtonClassNames = [
+    defaults.cardLikeButtonClassName,
+    isLiked && `${defaults.cardLikeButtonClassName}_active`,
+  ];
 
   function handleImageClick() {
     props.onCardClick(card);
@@ -55,14 +49,18 @@ const Card = memo(props => {
   return (
     <li className="element">
       <img onClick={handleImageClick} className="element__image" alt={card.name} src={card.link} />
-      <button onClick={handleDeleteClick} type="reset" className={cardDeleteButtonFinalClassName} />
+      <button
+        onClick={handleDeleteClick}
+        type="reset"
+        {...classNames(cardDeleteButtonClassNames)}
+      />
       <div className="element__container">
         <h2 className="element__title">{card.name}</h2>
         <div className="element__likes">
           <button
             onClick={handleLikeClick}
             type="button"
-            className={cardLikeButtonFinalClassName}
+            {...classNames(cardLikeButtonClassNames)}
           />
           <p className="element__like-counter">{card.likes.length}</p>
         </div>

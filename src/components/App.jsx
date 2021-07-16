@@ -228,13 +228,20 @@ function App() {
       });
   }
 
+  function handleSignOut() {
+    delete localStorage.token;
+    setLoggedIn(false);
+    history.replace(paths.login);
+  }
+
   React.useEffect(() => {
     handleTokenCheck();
   }, [handleTokenCheck]);
 
   return (
     <CurrentUserProvider state={currentUser} dispatch={setCurrentUser}>
-      <Header credential={email} loggedIn={[loggedIn, setLoggedIn]} />
+      <Header credential={email} onSignOut={handleSignOut} loggedIn={loggedIn} />
+
       <Switch>
         <Route path={[paths.register, paths.login]}>
           <Authentication
@@ -242,12 +249,14 @@ function App() {
             handleLogin={handleSubmitLogin}
             handleRegister={handleSubmitRegister}
           />
+
           <InfoTooltip
             isOpen={isInfoTooltipOpen}
             isSuccess={isInfoTooltipSuccess}
             onClose={handlePopupClick}
           />
         </Route>
+
         <ProtectedRoute path={paths.main} loggedIn={loggedIn}>
           <Main
             onEditProfile={handleEditProfileClick}
@@ -264,29 +273,26 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={handlePopupClick}
           />
-
           <AddPlacePopup
             onAddPlace={handleAddPlaceSubmit}
             isOpen={isAddPlacePopupOpen}
             onClose={handlePopupClick}
           />
-
           <EditAvatarPopup
             onUpdateAvatar={handleUpdateAvatar}
             isOpen={isEditAvatarPopupOpen}
             onClose={handlePopupClick}
           />
-
           <ConfirmDeletePopup
             card={selectedCard}
             onCardDelete={handleCardDelete}
             isOpen={isConfirmDeletePopupOpen}
             onClose={handlePopupClick}
           />
-
           <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={handlePopupClick} />
         </ProtectedRoute>
       </Switch>
+
       <Footer />
     </CurrentUserProvider>
   );

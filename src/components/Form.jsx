@@ -1,10 +1,8 @@
 import { memo, useCallback } from 'react';
 
-const Form = memo(props => {
-  const { onSubmit, ...finalProps } = props;
-
+const Form = memo(({ onSubmit, ...props }) => {
   const handleSubmit = useCallback(
-    e => {
+    (e) => {
       if (onSubmit) {
         e.preventDefault();
 
@@ -15,7 +13,7 @@ const Form = memo(props => {
   );
 
   return (
-    <form action="#" onSubmit={handleSubmit} {...finalProps}>
+    <form action="#" onSubmit={handleSubmit} {...props}>
       {props.children}
     </form>
   );

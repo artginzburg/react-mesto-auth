@@ -10,8 +10,6 @@ const defaultProps = {
   buttonTitle: pathNames.login.action,
 };
 
-const Login = memo((props) => (
-  <LoginOrRegister handleSubmit={props.handleLogin} {...props} {...defaultProps} />
-));
+const Login = memo((props) => <LoginOrRegister {...props} {...defaultProps} />);
 
 export default Login;

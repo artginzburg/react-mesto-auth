@@ -1,6 +1,7 @@
 import { forwardRef, createRef, useEffect } from 'react';
 
 import { formClassesConfig } from '../utils/utils';
+import { classNames } from '../utils/toClassNames';
 
 const defaults = {
   type: 'text',
@@ -8,7 +9,7 @@ const defaults = {
   minLength: 2,
 };
 
-const PopupInput = forwardRef((props, forwardedRef) => {
+const PopupInput = forwardRef(({ isFocused, ...props }, forwardedRef) => {
   const ref = forwardedRef ?? createRef();
 
   const type = props.type ?? defaults.type;
@@ -24,8 +25,6 @@ const PopupInput = forwardRef((props, forwardedRef) => {
     required,
     ref,
   };
-
-  const { isFocused, ...inputProps } = props;
 
   useEffect(() => {
     if (
@@ -43,10 +42,8 @@ const PopupInput = forwardRef((props, forwardedRef) => {
   return (
     <>
       <input
-        {...inputProps}
-        className={`${formClassesConfig.inputClass}${
-          inputProps.className ? ` ${inputProps.className}` : ''
-        }`}
+        {...props}
+        {...classNames([formClassesConfig.inputClass, props.className])}
         {...finalProps}
       />
       <p className="form__error" id={`${props.id}-error`} />

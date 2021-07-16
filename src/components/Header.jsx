@@ -1,16 +1,14 @@
 import { memo } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { paths, pathNames } from '../utils/constants';
 import { repo } from '../utils/pkg';
+import { classNames } from '../utils/toClassNames';
 
 import logo from '../images/logo.svg';
 
-const Header = memo((props) => {
-  const history = useHistory();
+const Header = memo(({ loggedIn, ...props }) => {
   const location = useLocation();
-
-  const [loggedIn, setLoggedIn] = props.loggedIn;
 
   let buttonTitle;
   let buttonLink = paths.login;
@@ -30,25 +28,17 @@ const Header = memo((props) => {
       break;
   }
 
-  function signOut() {
-    delete localStorage.token;
-    setLoggedIn(false);
-    history.replace(paths.login);
-  }
-
   return (
     <header className="header">
       <a target="_self" href={repo} className="logo header__logo">
         <img className="logo__img" alt="Mesto" src={logo} />
       </a>
       <div className="header__container">
-        {loggedIn && props.credential ? (
-          <p className="header__credential">{props.credential}</p>
-        ) : null}
+        {loggedIn && props.credential && <p className="header__credential">{props.credential}</p>}
         <Link
           to={buttonLink}
-          onClick={loggedIn ? signOut : null}
-          className={`header__action-button${loggedIn ? ' header__action-button_dimmed' : ''}`}
+          onClick={loggedIn ? props.onSignOut : null}
+          {...classNames(['header__action-button', loggedIn && 'header__action-button_dimmed'])}
         >
           {buttonTitle}
         </Link>
