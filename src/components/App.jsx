@@ -183,7 +183,7 @@ function App() {
 
   return (
     <>
-      <Header credential={email} />
+      <Header credential={email} loggedIn={[loggedIn, setLoggedIn]} />
       <Switch>
         <Route path={[paths.register, paths.login]}>
           <Authentication handleLogin={handleLogin} />

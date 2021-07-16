@@ -10,9 +10,10 @@ const Header = memo((props) => {
   const history = useHistory();
   const location = useLocation();
 
+  const [loggedIn, setLoggedIn] = props.loggedIn;
+
   let buttonTitle;
   let buttonLink = paths.login;
-  let loggedIn = false;
 
   switch (location.pathname) {
     case paths.login:
@@ -26,12 +27,12 @@ const Header = memo((props) => {
 
     default:
       buttonTitle = pathNames.quit.action;
-      loggedIn = true;
       break;
   }
 
   function signOut() {
     delete localStorage.token;
+    setLoggedIn(false);
     history.replace(paths.login);
   }
 
