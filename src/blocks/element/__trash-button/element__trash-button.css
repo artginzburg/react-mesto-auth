@@ -16,6 +16,7 @@
   background-image: url(../../../images/trash-icon.svg);
   background-repeat: no-repeat;
   background-position: center;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, .2));
 
   padding: 0;
 
