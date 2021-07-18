@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import { classNames } from '../utils/toClassNames';
 
-const POPUP_ANIMATION_DURATION = 300;
+const POPUP_ANIMATION_DURATION = 250;
 
 const defaults = {
   className: 'popup',
@@ -47,7 +47,12 @@ const Popup = memo(({ isOpen, ...props }) => {
   const popupClassNames = [defaults.className, props.className, classNameForAnimation];
 
   return createPortal(
-    <section onClick={props.onClick} {...classNames(popupClassNames)} id={props.id}>
+    <section
+      onClick={props.onClick}
+      style={{ transitionDuration: `${POPUP_ANIMATION_DURATION}ms` }}
+      {...classNames(popupClassNames)}
+      id={props.id}
+    >
       {props.children}
     </section>,
     modalRoot
