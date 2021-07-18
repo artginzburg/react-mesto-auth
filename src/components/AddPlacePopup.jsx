@@ -8,12 +8,14 @@ const defaults = {
   link: '',
 };
 
-const AddPlacePopup = memo(props => {
+const AddPlacePopup = memo((props) => {
   const [title, setTitle] = useState(defaults.title);
   const [link, setLink] = useState(defaults.link);
 
   function handleSubmit() {
-    props.onAddPlace(title, link);
+    return props.onAddPlace(title, link).catch((err) => {
+      throw err;
+    });
   }
 
   function handleReset() {

@@ -49,9 +49,11 @@ async function sendApiUpdate(dispatch, user, updates, func) {
     if (!objectsAreEqual(expectedUser, updatedUser)) {
       dispatch(updatedUser);
     }
+    return updatedUser;
   } catch (error) {
     dispatch(user);
     console.log('Couldnt update user information on the server', error);
+    throw error;
   }
 }
 

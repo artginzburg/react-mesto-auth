@@ -2,9 +2,9 @@ import { memo } from 'react';
 
 import PopupWithForm from './PopupWithForm';
 
-const ConfirmDeletePopup = memo(props => {
+const ConfirmDeletePopup = memo((props) => {
   function handleSubmit() {
-    props.onCardDelete(props.card);
+    return props.onCardDelete(props.card);
   }
 
   return (

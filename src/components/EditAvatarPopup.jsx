@@ -9,23 +9,24 @@ import {
 import PopupWithForm from './PopupWithForm';
 import PopupInput from './FormInput';
 
-const EditAvatarPopup = memo(props => {
+const EditAvatarPopup = memo((props) => {
   const ref = useRef();
 
   const currentUser = useCurrentUser();
   const setCurrentUser = useCurrentUserDispatcher();
 
   function handleSubmit() {
-    sendApiUpdate(
+    return sendApiUpdate(
       setCurrentUser,
       currentUser,
       {
         avatar: ref.current.value,
       },
       'updateAvatar'
-    );
-
-    props.onUpdateAvatar();
+    ).then((res) => {
+      props.onUpdateAvatar();
+      return res;
+    });
   }
 
   return (

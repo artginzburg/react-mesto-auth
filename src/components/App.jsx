@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { paths } from '../utils/constants';
+import scrollToTop from '../utils/scrollToTop';
 
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import useStateWithBase64 from '../hooks/useStateWithBase64';
@@ -77,9 +78,11 @@ function App() {
     try {
       const newCard = await api.changeLikeCardStatus(card._id, !isLiked);
       setCards(cards.map((c) => (c._id === card._id ? newCard : c)));
+      return newCard;
     } catch (error) {
       setCards(oldCards);
       console.error(error);
+      throw error;
     }
   }
 
@@ -98,12 +101,12 @@ function App() {
 
       setCards(cards.filter((c) => c._id !== card._id));
 
-      api.deleteCard(card._id).catch((error) => {
+      closeAllPopups();
+
+      return api.deleteCard(card._id).catch((error) => {
         setCards(oldCards);
         console.log('Couldnt delete card on the server', error);
       });
-
-      closeAllPopups();
     },
     [cards, setCards]
   );
@@ -152,12 +155,15 @@ function App() {
 
     setCards([expectedCard, ...cards]);
 
-    api
+    closeAllPopups();
+
+    return api
       .addCard(title, link)
       .then((newCard) => setCards([newCard, ...cards]))
-      .catch(() => setCards(oldCards));
-
-    closeAllPopups();
+      .catch((err) => {
+        setCards(oldCards);
+        throw err;
+      });
   }
 
   useEscapeHandler(closeAllPopups);
@@ -190,7 +196,7 @@ function App() {
   }, [handleLogin, history, setLoggedIn]);
 
   function handleSubmitRegister(e_, email, password) {
-    auth
+    return auth
       .register(email, password)
       .then(() => {
         history.replace(paths.login);
@@ -210,7 +216,7 @@ function App() {
       return;
     }
 
-    auth
+    return auth
       .login(email, password)
       .then((data) => {
         if (data.token) {
@@ -232,6 +238,7 @@ function App() {
     delete localStorage.token;
     setLoggedIn(false);
     history.replace(paths.login);
+    scrollToTop();
   }
 
   React.useEffect(() => {

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 import { popupSelectors, formClassesConfig } from '../utils/utils';
 import enableValidation from '../utils/enableValidation';
@@ -8,24 +8,42 @@ import Popup from './Popup';
 import Form from './Form';
 
 const defaultButtonTitle = 'Сохранить';
+const defaultSavingButtonTitle = 'Сохранение...';
 
-const PopupWithForm = memo(({ onSubmit, children, ...props }) => {
-  const buttonTitle = props.buttonTitle ?? defaultButtonTitle;
+const PopupWithForm = memo(({ onSubmit, children, onReset, ...props }) => {
+  const [buttonIsSaving, setButtonIsSaving] = useState(false);
+
+  const buttonTitle = buttonIsSaving
+    ? defaultSavingButtonTitle
+    : props.buttonTitle ?? defaultButtonTitle;
 
   const handleSubmit = useCallback(
     (e) => {
-      onSubmit && onSubmit(e);
+      setButtonIsSaving(true);
 
-      if (children) {
-        e.target.reset();
-      }
+      onSubmit &&
+        onSubmit(e)
+          .then((res) => {
+            if (children) {
+              e.target.reset();
+              onReset && onReset(e);
+            }
+            return res;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            setButtonIsSaving(false);
+          });
     },
-    [children, onSubmit]
+    [children, onReset, onSubmit]
   );
 
   const popupId = props.name;
 
   useEffect(() => {
+    // Prevent non-reactive validation from getting destroyed by conditional rendering
     if (props.isOpen) {
       const validationTimeout = setTimeout(() => {
         enableValidation(
@@ -43,11 +61,7 @@ const PopupWithForm = memo(({ onSubmit, children, ...props }) => {
         <button type="reset" className={popupSelectors.closeButtonClass} />
         <h2 className="popup__title">{props.title}</h2>
 
-        <Form
-          className={formClassesConfig.formClass}
-          onSubmit={handleSubmit}
-          onReset={props.onReset}
-        >
+        <Form className={formClassesConfig.formClass} onSubmit={handleSubmit} onReset={onReset}>
           {children}
           <button type="submit" className={`popup__button ${formClassesConfig.submitButtonClass}`}>
             {buttonTitle}

@@ -9,7 +9,7 @@ import {
 import PopupWithForm from './PopupWithForm';
 import PopupInput from './FormInput';
 
-const EditProfilePopup = memo(props => {
+const EditProfilePopup = memo((props) => {
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
 
@@ -17,12 +17,14 @@ const EditProfilePopup = memo(props => {
   const setCurrentUser = useCurrentUserDispatcher();
 
   useEffect(() => {
-    setName(currentUser.name);
-    setAbout(currentUser.about);
-  }, [currentUser]);
+    if (!props.isOpen) {
+      setName(currentUser.name);
+      setAbout(currentUser.about);
+    }
+  }, [currentUser, props.isOpen]);
 
   function handleSubmit() {
-    sendApiUpdate(
+    return sendApiUpdate(
       setCurrentUser,
       currentUser,
       {
@@ -30,9 +32,10 @@ const EditProfilePopup = memo(props => {
         about,
       },
       'editProfile'
-    );
-
-    props.onUpdateUser();
+    ).then((res) => {
+      props.onUpdateUser();
+      return res;
+    });
   }
 
   function handleNameChange(e) {
