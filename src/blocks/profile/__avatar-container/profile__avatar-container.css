@@ -53,4 +53,10 @@
 
 .profile__avatar-container:hover::before {
   opacity: 1;
+
+  pointer-events: none;
+}
+
+.profile__avatar-container:hover * {
+  pointer-events: all;
 }
