@@ -82,7 +82,6 @@ function App() {
     } catch (error) {
       setCards(oldCards);
       console.error(error);
-      throw error;
     }
   }
 
@@ -162,7 +161,7 @@ function App() {
       .then((newCard) => setCards([newCard, ...cards]))
       .catch((err) => {
         setCards(oldCards);
-        throw err;
+        throw err; // Forwarding error to AddPlacePopup
       });
   }
 

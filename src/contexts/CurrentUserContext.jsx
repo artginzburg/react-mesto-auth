@@ -53,7 +53,7 @@ async function sendApiUpdate(dispatch, user, updates, func) {
   } catch (error) {
     dispatch(user);
     console.log('Couldnt update user information on the server', error);
-    throw error;
+    throw error; // Forwarding error
   }
 }
 
