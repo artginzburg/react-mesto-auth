@@ -161,7 +161,7 @@ function App() {
       .then((newCard) => setCards([newCard, ...cards]))
       .catch((err) => {
         setCards(oldCards);
-        throw err; // Forwarding error to AddPlacePopup
+        throw err; // Forwarding error to PopupWithForm
       });
   }
 
