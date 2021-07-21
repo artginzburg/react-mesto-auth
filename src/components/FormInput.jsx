@@ -9,7 +9,7 @@ const defaults = {
   minLength: 2,
 };
 
-const PopupInput = forwardRef(({ isFocused, ...props }, forwardedRef) => {
+const FormInput = forwardRef(({ isFocused, ...props }, forwardedRef) => {
   const ref = forwardedRef ?? createRef();
 
   const type = props.type ?? defaults.type;
@@ -51,4 +51,4 @@ const PopupInput = forwardRef(({ isFocused, ...props }, forwardedRef) => {
   );
 });
 
-export default PopupInput;
+export default FormInput;

@@ -7,7 +7,7 @@ import {
 } from '../contexts/CurrentUserContext';
 
 import PopupWithForm from './PopupWithForm';
-import PopupInput from './FormInput';
+import FormInput from './FormInput';
 
 const EditAvatarPopup = memo((props) => {
   const ref = useRef();
@@ -31,7 +31,7 @@ const EditAvatarPopup = memo((props) => {
 
   return (
     <PopupWithForm {...props} onSubmit={handleSubmit} title="Обновить аватар" name="avatar-editor">
-      <PopupInput
+      <FormInput
         isFocused={props.isOpen}
         ref={ref}
         type="url"

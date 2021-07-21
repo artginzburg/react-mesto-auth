@@ -7,7 +7,7 @@ import {
 } from '../contexts/CurrentUserContext';
 
 import PopupWithForm from './PopupWithForm';
-import PopupInput from './FormInput';
+import FormInput from './FormInput';
 
 const EditProfilePopup = memo((props) => {
   const [name, setName] = useState('');
@@ -53,7 +53,7 @@ const EditProfilePopup = memo((props) => {
       title="Редактировать профиль"
       name="profile-editor"
     >
-      <PopupInput
+      <FormInput
         isFocused={props.isOpen}
         value={name}
         onChange={handleNameChange}
@@ -65,7 +65,7 @@ const EditProfilePopup = memo((props) => {
         maxLength="40"
       />
 
-      <PopupInput
+      <FormInput
         value={about}
         onChange={handleAboutChange}
         name="about"

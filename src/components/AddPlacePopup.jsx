@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 
 import PopupWithForm from './PopupWithForm';
-import PopupInput from './FormInput';
+import FormInput from './FormInput';
 
 const defaults = {
   title: '',
@@ -38,7 +38,7 @@ const AddPlacePopup = memo((props) => {
       name="element-editor"
       buttonTitle="Создать"
     >
-      <PopupInput
+      <FormInput
         isFocused={props.isOpen}
         value={title}
         onChange={handleTitleChange}
@@ -48,7 +48,7 @@ const AddPlacePopup = memo((props) => {
         maxLength="30"
       />
 
-      <PopupInput
+      <FormInput
         value={link}
         onChange={handleLinkChange}
         type="url"
