@@ -41,7 +41,6 @@ In the project directory, you can run:
 
 - Ideas (sorted by concern)
 
-  - [ ] Try passing down less of `loggedIn` state
   - [ ] Make form validation "Reactive"
   - [ ] Add locales and English language
   - [x] Make InfoTooltip image unclickable
