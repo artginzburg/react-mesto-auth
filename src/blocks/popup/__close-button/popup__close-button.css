@@ -34,6 +34,12 @@
   transform: rotate(-45deg) scale(.9);
 }
 
+@media (hover: none) {
+  .popup__close-button {
+    pointer-events: none;
+  }
+}
+
 @media (hover: hover) {
   .popup__close-button:hover {
     opacity: .6;
