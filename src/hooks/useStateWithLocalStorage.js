@@ -2,11 +2,13 @@ import { useState, useCallback, useEffect } from 'react';
 
 export default function useStateWithLocalStorage(computed, defaultForComputed) {
   const [currentState, updateCurrentState] = useState(
-    localStorage[computed] ? JSON.parse(localStorage[computed]) : defaultForComputed
+    localStorage[computed] && localStorage[computed] !== 'undefined'
+      ? JSON.parse(localStorage[computed])
+      : defaultForComputed
   );
 
   const localStorageChanged = useCallback(
-    e => {
+    (e) => {
       if (e.key === computed) {
         updateCurrentState(e.newValue ? JSON.parse(e.newValue) : defaultForComputed);
       }
@@ -15,7 +17,7 @@ export default function useStateWithLocalStorage(computed, defaultForComputed) {
   );
 
   const setCurrentState = useCallback(
-    value => {
+    (value) => {
       localStorage[computed] = JSON.stringify(value);
       updateCurrentState(value);
     },
