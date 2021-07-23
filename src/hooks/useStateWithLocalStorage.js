@@ -1,10 +1,20 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
+
+import useEventListener from './useEventListener';
 
 export default function useStateWithLocalStorage(computed, defaultForComputed) {
   const [currentState, updateCurrentState] = useState(
     localStorage[computed] && localStorage[computed] !== 'undefined'
       ? JSON.parse(localStorage[computed])
       : defaultForComputed
+  );
+
+  const setCurrentState = useCallback(
+    (value) => {
+      localStorage[computed] = JSON.stringify(value);
+      updateCurrentState(value);
+    },
+    [computed]
   );
 
   const localStorageChanged = useCallback(
@@ -16,22 +26,7 @@ export default function useStateWithLocalStorage(computed, defaultForComputed) {
     [computed, defaultForComputed]
   );
 
-  const setCurrentState = useCallback(
-    (value) => {
-      localStorage[computed] = JSON.stringify(value);
-      updateCurrentState(value);
-    },
-    [computed]
-  );
-
-  useEffect(() => {
-    const listenerArgs = ['storage', localStorageChanged];
-
-    window.addEventListener(...listenerArgs);
-    return () => {
-      window.removeEventListener(...listenerArgs);
-    };
-  }, [localStorageChanged]);
+  useEventListener('storage', localStorageChanged);
 
   return [currentState, setCurrentState];
 }
