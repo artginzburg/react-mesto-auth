@@ -4,7 +4,7 @@ import useEnterHandler from '../hooks/useEnterHandler';
 
 import PopupWithForm from './PopupWithForm';
 
-const propsAreEqual = (prevProps, nextProps) => prevProps.isOpen === nextProps.isOpen;
+const popupShouldRender = (prevProps, nextProps) => prevProps.isOpen === nextProps.isOpen;
 
 const ConfirmDeletePopup = memo((props) => {
   const { onCardDelete, card, isOpen } = props;
@@ -24,6 +24,6 @@ const ConfirmDeletePopup = memo((props) => {
       buttonTitle="Да"
     />
   );
-}, propsAreEqual);
+}, popupShouldRender);
 
 export default ConfirmDeletePopup;
