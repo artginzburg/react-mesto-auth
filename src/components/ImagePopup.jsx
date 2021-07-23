@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import { popupSelectors } from '../utils/utils';
 import { classNames } from '../utils/toClassNames';
 
@@ -10,13 +8,13 @@ const buttonClassNames = [
   `${popupSelectors.closeButtonClass}_parent-corners_straight`,
 ];
 
-const ImagePopup = memo(({ card }) => (
+const ImagePopup = ({ card }) => (
   <figure className="popup__figure">
     <button type="button" {...classNames(buttonClassNames)} />
     <img className="popup__image" alt={card.name} src={card.link} />
     <figcaption className="popup__caption">{card.name}</figcaption>
   </figure>
-));
+);
 
 export default inPopup(ImagePopup, () => ({
   className: 'popup_type_image',

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { popupSelectors, formClassesConfig } from '../utils/utils';
 import enableValidation from '../utils/enableValidation';
@@ -10,7 +10,7 @@ import Form from './Form';
 const defaultButtonTitle = 'Сохранить';
 const defaultSavingButtonTitle = 'Сохранение...';
 
-const PopupWithForm = memo(({ onSubmit, children, onReset, ...props }) => {
+const PopupWithForm = ({ onSubmit, children, onReset, ...props }) => {
   const [buttonIsSaving, setButtonIsSaving] = useState(false);
 
   const buttonTitle = buttonIsSaving
@@ -68,6 +68,6 @@ const PopupWithForm = memo(({ onSubmit, children, onReset, ...props }) => {
       </Form>
     </div>
   );
-});
+};
 
 export default inPopup(PopupWithForm, (props) => ({ id: props.name }));
