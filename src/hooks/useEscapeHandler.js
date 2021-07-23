@@ -1,20 +1,19 @@
-import { useCallback, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 
-export default function useEscapeHandler(dispatch) {
-  const escHandler = useCallback(
-    e => {
-      if (e.key === 'Escape') {
-        dispatch();
-      }
-    },
-    [dispatch]
-  );
+import useEventListener from './useEventListener';
+
+export default function useEscapeHandler(handler) {
+  const savedHandler = useRef();
 
   useEffect(() => {
-    const listenerArgs = ['keydown', escHandler, false];
+    savedHandler.current = handler;
+  }, [handler]);
 
-    document.addEventListener(...listenerArgs);
+  const escHandler = useCallback((e) => {
+    if (e.key === 'Escape') {
+      savedHandler.current();
+    }
+  }, []);
 
-    return () => document.removeEventListener(...listenerArgs);
-  }, [escHandler]);
+  useEventListener('keydown', escHandler);
 }
