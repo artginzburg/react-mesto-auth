@@ -1,11 +1,19 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
+
+import useEnterHandler from '../hooks/useEnterHandler';
 
 import PopupWithForm from './PopupWithForm';
 
+const propsAreEqual = (prevProps, nextProps) => prevProps.isOpen === nextProps.isOpen;
+
 const ConfirmDeletePopup = memo((props) => {
-  function handleSubmit() {
-    return props.onCardDelete(props.card);
-  }
+  const { onCardDelete, card, isOpen } = props;
+
+  const handleSubmit = useCallback(() => onCardDelete(card), [card, onCardDelete]);
+
+  const handleEnter = useCallback(() => isOpen && handleSubmit(), [handleSubmit, isOpen]);
+
+  useEnterHandler(handleEnter);
 
   return (
     <PopupWithForm
@@ -16,6 +24,6 @@ const ConfirmDeletePopup = memo((props) => {
       buttonTitle="Да"
     />
   );
-});
+}, propsAreEqual);
 
 export default ConfirmDeletePopup;
