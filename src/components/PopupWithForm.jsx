@@ -4,7 +4,6 @@ import { popupSelectors, formClassesConfig } from '../utils/utils';
 import enableValidation from '../utils/enableValidation';
 import { defaultFormConfig } from '../utils/utils';
 
-import Popup from './Popup';
 import inPopup from './inPopup';
 import Form from './Form';
 
@@ -57,20 +56,18 @@ const PopupWithForm = memo(({ onSubmit, children, onReset, ...props }) => {
   }, [popupId, props.isOpen]);
 
   return (
-    <Popup isOpen={props.isOpen} onClick={props.onClose} id={popupId}>
-      <div className="popup__container">
-        <button type="reset" className={popupSelectors.closeButtonClass} />
-        <h2 className="popup__title">{props.title}</h2>
+    <div className="popup__container">
+      <button type="reset" className={popupSelectors.closeButtonClass} />
+      <h2 className="popup__title">{props.title}</h2>
 
-        <Form className={formClassesConfig.formClass} onSubmit={handleSubmit} onReset={onReset}>
-          {children}
-          <button type="submit" className={`popup__button ${formClassesConfig.submitButtonClass}`}>
-            {buttonTitle}
-          </button>
-        </Form>
-      </div>
-    </Popup>
+      <Form className={formClassesConfig.formClass} onSubmit={handleSubmit} onReset={onReset}>
+        {children}
+        <button type="submit" className={`popup__button ${formClassesConfig.submitButtonClass}`}>
+          {buttonTitle}
+        </button>
+      </Form>
+    </div>
   );
 });
 
-export default inPopup(PopupWithForm);
+export default inPopup(PopupWithForm, (props) => ({ id: props.name }));
