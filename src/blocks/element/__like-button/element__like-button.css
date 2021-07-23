@@ -19,6 +19,12 @@
 
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+
+  appearance: none;
+}
+
+.element__like-button:checked {
+  background-image: url(../../../images/like-icon-filled.svg);
 }
 
 .element__like-button:active {
