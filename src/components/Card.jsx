@@ -41,7 +41,7 @@ const Card = memo(({ card, ...props }) => {
           <input
             checked={isLiked}
             type="checkbox"
-            onClick={handleLikeClick}
+            onChange={handleLikeClick}
             className="element__like-button"
           />
           <p className="element__like-counter">{card.likes.length}</p>
