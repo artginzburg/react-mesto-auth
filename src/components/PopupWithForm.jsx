@@ -5,6 +5,7 @@ import enableValidation from '../utils/enableValidation';
 import { defaultFormConfig } from '../utils/utils';
 
 import Popup from './Popup';
+import inPopup from './inPopup';
 import Form from './Form';
 
 const defaultButtonTitle = 'Сохранить';
@@ -72,4 +73,4 @@ const PopupWithForm = memo(({ onSubmit, children, onReset, ...props }) => {
   );
 });
 
-export default PopupWithForm;
+export default inPopup(PopupWithForm);

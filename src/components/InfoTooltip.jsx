@@ -6,6 +6,7 @@ import crossIcon from '../images/cross.svg';
 import { popupSelectors } from '../utils/utils';
 
 import Popup from './Popup';
+import inPopup from './inPopup';
 
 const backgroundImageUrl = (url) => ({ backgroundImage: `url(${url})` });
 
@@ -31,4 +32,4 @@ const InfoTooltip = memo(({ isSuccess, ...props }) => {
   );
 });
 
-export default InfoTooltip;
+export default inPopup(InfoTooltip);

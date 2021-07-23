@@ -4,6 +4,7 @@ import { popupSelectors } from '../utils/utils';
 import { classNames } from '../utils/toClassNames';
 
 import Popup from './Popup';
+import inPopup from './inPopup';
 
 const buttonClassNames = [
   popupSelectors.closeButtonClass,
@@ -25,4 +26,4 @@ const ImagePopup = memo(({ card, ...props }) => (
   </Popup>
 ));
 
-export default ImagePopup;
+export default inPopup(ImagePopup);
