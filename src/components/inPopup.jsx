@@ -2,11 +2,15 @@ import { memo } from 'react';
 
 import Popup from './Popup';
 
-const popupShouldRender = (prevProps, nextProps) =>
-  !(nextProps.isOpen || prevProps.isOpen !== nextProps.isOpen);
+const popupShouldntRender = (prevProps, nextProps) => {
+  const isOpen = prevProps.isOpen;
+  const notSame = prevProps.isOpen !== nextProps.isOpen;
+  const condition = isOpen || notSame;
+  return !condition;
+};
 
 const inPopup = (Component, propsFunction) => {
-  const ComponentWrapper = (props) => {
+  function ComponentWrapper(props) {
     const popupProps = {
       isOpen: props.isOpen,
       onClick: props.onClose,
@@ -18,9 +22,9 @@ const inPopup = (Component, propsFunction) => {
         <Component {...props} />
       </Popup>
     );
-  };
+  }
 
-  return memo(ComponentWrapper, popupShouldRender);
+  return memo(ComponentWrapper, popupShouldntRender);
 };
 
 export default inPopup;
