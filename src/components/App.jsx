@@ -191,6 +191,8 @@ function App() {
 
           console.log(err);
         });
+    } else {
+      setLoggedIn(false);
     }
   }, [handleLogin, history, setLoggedIn]);
 
