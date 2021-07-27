@@ -8,6 +8,7 @@ import scrollToTop from '../utils/scrollToTop';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import useStateWithBase64 from '../hooks/useStateWithBase64';
 import useEscapeHandler from '../hooks/useEscapeHandler';
+import useLocalHostChecker from '../hooks/useLocalHostChecker';
 
 import api from '../api/api';
 import auth from '../api/auth';
@@ -29,7 +30,9 @@ import ImagePopup from './ImagePopup';
 import InfoTooltip from './InfoTooltip';
 
 function App() {
+  useLocalHostChecker();
   const history = useHistory();
+
   const [currentUser, setCurrentUser] = useStateWithLocalStorage('currentUser', defaultUserState);
 
   const [loggedIn, setLoggedIn] = useStateWithLocalStorage('loggedIn', false);
