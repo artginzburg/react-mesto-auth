@@ -8,7 +8,7 @@
   overflow: hidden;
 
   pointer-events: none;
-  cursor: pointer;
+  cursor: url(../../../images/avatar-icon.svg), pointer;
 
   -webkit-tap-highlight-color: transparent;
   user-select: none;
@@ -67,6 +67,10 @@
 }
 
 @media (hover: hover) {
+  .profile__avatar-container::before {
+    background-image: none;
+  }
+
   .profile__avatar-container:hover::before {
     opacity: 1;
 
