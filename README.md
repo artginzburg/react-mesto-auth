@@ -2,7 +2,7 @@
 
 > Mesto frontend with authentification
 
-Project 12: <kbd>Currently in development...</kbd>
+Project 12: <kbd>[Reviewed and accepted version of the project](https://github.com/artginzburg/react-mesto-auth/tree/project-12_final)</kbd>
 
 ## Description
 
