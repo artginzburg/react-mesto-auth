@@ -21,7 +21,7 @@
 
   padding: calc((50px - 22px) / 2 - 1px);
 
-  transition-property: opacity transform;
+  transition-property: opacity, transform;
   transition-duration: .2s;
 
   -webkit-tap-highlight-color: transparent;

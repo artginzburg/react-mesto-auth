@@ -13,7 +13,7 @@
 
   cursor: pointer;
 
-  transition-property: opacity background-color color;
+  transition-property: opacity, background-color, color, font-size, line-height, margin-top;
   transition-duration: .2s;
 
   -webkit-tap-highlight-color: transparent;

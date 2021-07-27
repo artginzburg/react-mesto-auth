@@ -2,6 +2,8 @@
   max-height: 33px;
   max-width: 142px;
 
+  transition-property: opacity;
+
   -webkit-tap-highlight-color: transparent;
 }
 

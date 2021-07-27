@@ -14,7 +14,7 @@
 
   cursor: pointer;
 
-  transition-property: opacity background-image;
+  transition-property: opacity, background-image, transform;
   transition-duration: .2s;
 
   -webkit-tap-highlight-color: transparent;

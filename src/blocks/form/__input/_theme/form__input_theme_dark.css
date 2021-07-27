@@ -11,6 +11,8 @@
 .form__input_theme_dark::-webkit-credentials-auto-fill-button {
   background-color: #eee;
   transform: scale(1.2);
+
+  transition-property: transform, opacity;
   transition-duration: .15s;
 }
 

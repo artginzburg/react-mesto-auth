@@ -16,7 +16,7 @@
 
   visibility: hidden;
   opacity: 0;
-  transition-property: visibility opacity;
+  transition-property: visibility, opacity;
   transition-timing-function: ease-out;
 
   pointer-events: none;

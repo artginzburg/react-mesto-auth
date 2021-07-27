@@ -46,7 +46,7 @@ const LoginOrRegister = memo((props) => {
   }
 
   return (
-    <div className="auth">
+    <div className="content auth">
       <h2 className="auth__title">{props.title}</h2>
 
       <Form onSubmit={handleSubmit} onReset={handleReset} className={formClassesConfig.formClass}>

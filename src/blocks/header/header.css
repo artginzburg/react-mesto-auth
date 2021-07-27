@@ -5,9 +5,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  transition-property: min-height;
+  transition-duration: .2s;
 }
 
 .header::before {
+  transition: inherit;
   position: absolute;
 
   z-index: -1;

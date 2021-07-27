@@ -1,7 +1,7 @@
 .logo {
   display: inline-block;
 
-  transition-property: opacity;
+  transition-property: opacity, max-height, max-width;
   transition-duration: .2s;
 }
 

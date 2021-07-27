@@ -8,6 +8,9 @@
   line-height: 29px;
 
   color: #fff;
+
+  transition-property: margin-bottom, font-size, line-height;
+  transition-duration: .2s;
 }
 
 @media screen and (max-width: 767px) {

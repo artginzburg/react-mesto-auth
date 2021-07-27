@@ -18,7 +18,7 @@
 
   cursor: pointer;
 
-  transition-property: opacity transform;
+  transition-property: opacity, transform, min-height, min-width, top, right;
   transition-duration: .2s;
 
   top: -38px;

@@ -5,7 +5,7 @@
   color: #545454;
   text-decoration-line: none;
 
-  transition-property: opacity;
+  transition-property: opacity, font-size, line-height;
   transition-duration: .2s;
 
   -webkit-tap-highlight-color: transparent;
