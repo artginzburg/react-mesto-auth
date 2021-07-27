@@ -8,6 +8,8 @@
   left: 0;
 
   margin: auto;
+  justify-content: center;
+  align-items: center;
 
   max-width: calc(100vw - 19px*2);
   min-height: 100vh;

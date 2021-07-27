@@ -48,15 +48,34 @@
   opacity: 0;
 
   transition-property: opacity;
-  transition-duration: .2s;
+  transition-duration: .6s;
 }
 
-.profile__avatar-container:hover::before {
-  opacity: 1;
+@media (hover: none) {
+  .profile__avatar-container::before {
+    transition-delay: .2s;
+  }
+  .profile__avatar-container:active * {
+    pointer-events: all;
+  }
+  .profile__avatar-container:active::before {
+    opacity: 1;
 
-  pointer-events: none;
+    transition-delay: .0s;
+    transition-duration: .2s;
+  }
 }
 
-.profile__avatar-container:hover * {
-  pointer-events: all;
+@media (hover: hover) {
+  .profile__avatar-container:hover::before {
+    opacity: 1;
+
+    pointer-events: none;
+
+    transition-duration: .2s;
+  }
+
+  .profile__avatar-container:hover * {
+    pointer-events: all;
+  }
 }
