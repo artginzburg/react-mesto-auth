@@ -4,8 +4,7 @@
   width: 120px;
   height: 120px;
 
-  border-radius: 50%;
-  overflow: hidden;
+  border-radius: 100%;
 
   pointer-events: none;
   cursor: url(../../../images/avatar-icon.svg), pointer;
@@ -27,6 +26,7 @@
 
 .profile__avatar-container::before {
   border-radius: inherit;
+  transform: scale(1.01);
   box-sizing: border-box;
 
   pointer-events: all;
