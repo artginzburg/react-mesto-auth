@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import { formClassesConfig } from '../utils/utils';
 
@@ -17,6 +17,10 @@ const inputNames = {
 };
 
 const LoginOrRegister = memo((props) => {
+  const [buttonIsSaving, setButtonIsSaving] = useState(false);
+
+  const buttonTitle = buttonIsSaving ? props.buttonSavingTitle : props.buttonTitle;
+
   const [email, setEmail] = props.states.email;
   const [password, setPassword] = props.states.password;
 
@@ -29,7 +33,11 @@ const LoginOrRegister = memo((props) => {
   };
 
   function handleSubmit(e) {
-    props.handleSubmit(e, email, password);
+    setButtonIsSaving(true);
+
+    props.handleSubmit(e, email, password).finally(() => {
+      setButtonIsSaving(false);
+    });
   }
 
   function handleReset() {
@@ -65,9 +73,10 @@ const LoginOrRegister = memo((props) => {
         />
         <button
           type="submit"
+          disabled={!email.length || !password.length}
           className={`auth__button ${formClassesConfig.submitButtonClass} ${formClassesConfig.submitButtonClass}_theme_dark`}
         >
-          {props.buttonTitle}
+          {buttonTitle}
         </button>
       </Form>
       {props.children}
