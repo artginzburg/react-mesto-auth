@@ -18,12 +18,9 @@ const EditAvatarPopup = memo((props) => {
   const setCurrentUser = useCurrentUserDispatcher();
 
   function handleSubmit() {
-    return sendApiUpdate(setCurrentUser, currentUser, form.getData(), 'updateAvatar').then(
-      (res) => {
-        props.onUpdateAvatar();
-        return res;
-      }
-    );
+    props.onUpdateAvatar();
+
+    return sendApiUpdate(setCurrentUser, currentUser, form.getData(), 'updateAvatar');
   }
 
   return (
