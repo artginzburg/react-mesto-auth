@@ -12,9 +12,7 @@ import PopupWithForm from './PopupWithForm';
 import FormInput from './FormInput';
 
 const EditAvatarPopup = memo((props) => {
-  const form = useValidatedForm({
-    avatar: '',
-  });
+  const form = useValidatedForm();
 
   const currentUser = useCurrentUser();
   const setCurrentUser = useCurrentUserDispatcher();

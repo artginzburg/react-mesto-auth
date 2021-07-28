@@ -5,13 +5,8 @@ import useValidatedForm from '../hooks/useValidatedForm';
 import PopupWithForm from './PopupWithForm';
 import FormInput from './FormInput';
 
-const defaults = {
-  title: '',
-  link: '',
-};
-
 const AddPlacePopup = memo((props) => {
-  const form = useValidatedForm(defaults);
+  const form = useValidatedForm();
 
   function handleSubmit() {
     return props.onAddPlace(form.getData());

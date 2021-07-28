@@ -5,7 +5,7 @@ const initialStates = {
   isInvalid: true,
 };
 
-export default function useValidatedForm(initialData) {
+export default function useValidatedForm(initialData = {}) {
   const [data, setData] = useState(initialData);
   const [errors, setErrors] = useState(initialStates.errors);
   const [isInvalid, setIsInvalid] = useState(initialStates.isInvalid);
@@ -30,7 +30,7 @@ export default function useValidatedForm(initialData) {
   return {
     register(name) {
       return {
-        value: data[name],
+        value: data[name] ?? '',
         onChange: (e) => {
           const input = e.currentTarget;
           const { value, validationMessage } = input;
@@ -43,7 +43,6 @@ export default function useValidatedForm(initialData) {
         },
         validationMessage: errors[name],
         name,
-        // onReset: this.reset(),
       };
     },
     reset() {
