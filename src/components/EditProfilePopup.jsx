@@ -34,7 +34,7 @@ const EditProfilePopup = memo((props) => {
       onSubmit={handleSubmit}
       title="Редактировать профиль"
       name="profile-editor"
-      isSubmitDisabled={!form.isValid}
+      isSubmitDisabled={form.isInvalid}
     >
       <FormInput
         isFocused={props.isOpen}

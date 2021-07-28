@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 
 import {
   useCurrentUser,
@@ -6,36 +6,41 @@ import {
   sendApiUpdate,
 } from '../contexts/CurrentUserContext';
 
+import useValidatedForm from '../hooks/useValidatedForm';
+
 import PopupWithForm from './PopupWithForm';
 import FormInput from './FormInput';
 
 const EditAvatarPopup = memo((props) => {
-  const ref = useRef();
+  const form = useValidatedForm({
+    avatar: '',
+  });
 
   const currentUser = useCurrentUser();
   const setCurrentUser = useCurrentUserDispatcher();
 
   function handleSubmit() {
-    return sendApiUpdate(
-      setCurrentUser,
-      currentUser,
-      {
-        avatar: ref.current.value,
-      },
-      'updateAvatar'
-    ).then((res) => {
-      props.onUpdateAvatar();
-      return res;
-    });
+    return sendApiUpdate(setCurrentUser, currentUser, form.getData(), 'updateAvatar').then(
+      (res) => {
+        props.onUpdateAvatar();
+        return res;
+      }
+    );
   }
 
   return (
-    <PopupWithForm {...props} onSubmit={handleSubmit} title="Обновить аватар" name="avatar-editor">
+    <PopupWithForm
+      {...props}
+      onSubmit={handleSubmit}
+      onReset={form.reset}
+      title="Обновить аватар"
+      name="avatar-editor"
+      isSubmitDisabled={form.isInvalid}
+    >
       <FormInput
         isFocused={props.isOpen}
-        ref={ref}
+        {...form.register('avatar')}
         type="url"
-        name="avatar"
         id="profile-avatar"
         placeholder="Ссылка на картинку"
       />

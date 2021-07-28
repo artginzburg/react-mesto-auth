@@ -25,7 +25,7 @@ const AddPlacePopup = memo((props) => {
       title="Новое место"
       name="element-editor"
       buttonTitle="Создать"
-      isSubmitDisabled={!form.isValid}
+      isSubmitDisabled={form.isInvalid}
     >
       <FormInput
         isFocused={props.isOpen}

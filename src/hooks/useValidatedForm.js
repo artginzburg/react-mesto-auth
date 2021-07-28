@@ -2,16 +2,25 @@ import { useState } from 'react';
 
 const initialStates = {
   errors: {},
-  isValid: false,
+  isInvalid: true,
 };
 
 export default function useValidatedForm(initialData) {
   const [data, setData] = useState(initialData);
   const [errors, setErrors] = useState(initialStates.errors);
-  const [isValid, setIsValid] = useState(initialStates.isValid);
+  const [isInvalid, setIsInvalid] = useState(initialStates.isInvalid);
 
   function handleChange(name, value) {
-    setData((prevData) => ({ ...prevData, [name]: value }));
+    setData((prevData) => {
+      const newData = { ...prevData, [name]: value };
+
+      const newDataEqualsInitial = JSON.stringify(newData) === JSON.stringify(initialData);
+      if (newDataEqualsInitial) {
+        setIsInvalid(true);
+      }
+
+      return newData;
+    });
   }
 
   function handleError(name, validationMessage) {
@@ -25,22 +34,26 @@ export default function useValidatedForm(initialData) {
         onChange: (e) => {
           const input = e.currentTarget;
           const { value, validationMessage } = input;
+
           handleChange(name, value);
           handleError(name, validationMessage);
-          setIsValid(input.closest('form').checkValidity());
+
+          const formValidity = input.closest('form').checkValidity();
+          setIsInvalid(!formValidity);
         },
         validationMessage: errors[name],
         name,
+        // onReset: this.reset(),
       };
     },
     reset() {
       setData(initialData);
       setErrors(initialStates.errors);
-      setIsValid(initialStates.isValid);
+      setIsInvalid(initialStates.isInvalid);
     },
     getData() {
       return data;
     },
-    isValid,
+    isInvalid,
   };
 }
