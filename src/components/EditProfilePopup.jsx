@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from 'react';
+import { memo } from 'react';
 
 import {
   useCurrentUser,
@@ -6,44 +6,26 @@ import {
   sendApiUpdate,
 } from '../contexts/CurrentUserContext';
 
+import useValidatedForm from '../hooks/useValidatedForm';
+
 import PopupWithForm from './PopupWithForm';
 import FormInput from './FormInput';
 
 const EditProfilePopup = memo((props) => {
-  const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
-
   const currentUser = useCurrentUser();
   const setCurrentUser = useCurrentUserDispatcher();
 
-  useEffect(() => {
-    if (!props.isOpen) {
-      setName(currentUser.name);
-      setAbout(currentUser.about);
-    }
-  }, [currentUser, props.isOpen]);
+  const { name, about } = currentUser;
 
-  function handleSubmit() {
-    return sendApiUpdate(
-      setCurrentUser,
-      currentUser,
-      {
-        name,
-        about,
-      },
-      'editProfile'
-    ).then((res) => {
-      props.onUpdateUser();
-      return res;
-    });
-  }
+  const form = useValidatedForm({
+    name,
+    about,
+  });
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleAboutChange(e) {
-    setAbout(e.target.value);
+  async function handleSubmit() {
+    const res = await sendApiUpdate(setCurrentUser, currentUser, form.getData(), 'editProfile');
+    props.onUpdateUser();
+    return res;
   }
 
   return (
@@ -52,23 +34,20 @@ const EditProfilePopup = memo((props) => {
       onSubmit={handleSubmit}
       title="Редактировать профиль"
       name="profile-editor"
+      isSubmitDisabled={!form.isValid}
     >
       <FormInput
         isFocused={props.isOpen}
-        value={name}
-        onChange={handleNameChange}
+        {...form.register('name')}
         autoComplete="name"
         autoCapitalize="words"
-        name="name"
         id="profile-name"
         placeholder="Имя"
         maxLength="40"
       />
 
       <FormInput
-        value={about}
-        onChange={handleAboutChange}
-        name="about"
+        {...form.register('about')}
         id="profile-about"
         placeholder="О себе"
         maxLength="200"

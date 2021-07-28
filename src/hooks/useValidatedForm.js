@@ -30,6 +30,7 @@ export default function useValidatedForm(initialData) {
           setIsValid(input.closest('form').checkValidity());
         },
         validationMessage: errors[name],
+        name,
       };
     },
     reset() {

@@ -140,15 +140,13 @@ function App() {
   }
 
   const handlePopupClick = React.useCallback((e) => {
-    if (e.target === e.currentTarget) {
-      closeAllPopups();
-    }
+    e.target === e.currentTarget && closeAllPopups();
   }, []);
 
   const handleUpdateUser = closeAllPopups;
   const handleUpdateAvatar = closeAllPopups;
 
-  function handleAddPlaceSubmit(title, link) {
+  function handleAddPlaceSubmit({ title, link }) {
     const oldCards = cards;
 
     const expectedCard = {

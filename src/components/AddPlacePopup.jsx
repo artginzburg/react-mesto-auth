@@ -14,19 +14,14 @@ const AddPlacePopup = memo((props) => {
   const form = useValidatedForm(defaults);
 
   function handleSubmit() {
-    const { title, link } = form.getData();
-    return props.onAddPlace(title, link);
-  }
-
-  function handleReset() {
-    form.reset();
+    return props.onAddPlace(form.getData());
   }
 
   return (
     <PopupWithForm
       {...props}
       onSubmit={handleSubmit}
-      onReset={handleReset}
+      onReset={form.reset}
       title="Новое место"
       name="element-editor"
       buttonTitle="Создать"
@@ -35,7 +30,6 @@ const AddPlacePopup = memo((props) => {
       <FormInput
         isFocused={props.isOpen}
         {...form.register('title')}
-        name="title"
         id="element-title"
         placeholder="Название"
         maxLength="30"
@@ -44,7 +38,6 @@ const AddPlacePopup = memo((props) => {
       <FormInput
         {...form.register('link')}
         type="url"
-        name="link"
         id="element-link"
         placeholder="Ссылка на картинку"
       />
