@@ -1,4 +1,6 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
+
+import useForm from '../hooks/useForm';
 
 import PopupWithForm from './PopupWithForm';
 import FormInput from './FormInput';
@@ -9,24 +11,15 @@ const defaults = {
 };
 
 const AddPlacePopup = memo((props) => {
-  const [title, setTitle] = useState(defaults.title);
-  const [link, setLink] = useState(defaults.link);
+  const form = useForm(defaults);
 
   function handleSubmit() {
+    const { title, link } = form.getData();
     return props.onAddPlace(title, link);
   }
 
   function handleReset() {
-    setTitle(defaults.title);
-    setLink(defaults.link);
-  }
-
-  function handleTitleChange(e) {
-    setTitle(e.target.value);
-  }
-
-  function handleLinkChange(e) {
-    setLink(e.target.value);
+    form.reset();
   }
 
   return (
@@ -40,8 +33,7 @@ const AddPlacePopup = memo((props) => {
     >
       <FormInput
         isFocused={props.isOpen}
-        value={title}
-        onChange={handleTitleChange}
+        {...form.register('title')}
         name="title"
         id="element-title"
         placeholder="Название"
@@ -49,8 +41,7 @@ const AddPlacePopup = memo((props) => {
       />
 
       <FormInput
-        value={link}
-        onChange={handleLinkChange}
+        {...form.register('link')}
         type="url"
         name="link"
         id="element-link"
