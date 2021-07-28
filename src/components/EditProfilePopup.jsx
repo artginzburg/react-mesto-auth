@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 import {
   useCurrentUser,
@@ -15,12 +15,16 @@ const EditProfilePopup = memo((props) => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useCurrentUserDispatcher();
 
-  const { name, about } = currentUser;
+  const { reset, ...form } = useValidatedForm(currentUser);
 
-  const form = useValidatedForm({
-    name,
-    about,
-  });
+  useEffect(() => {
+    if (props.isOpen) {
+      reset(null, {
+        name: currentUser.name,
+        about: currentUser.about,
+      });
+    }
+  }, [currentUser.about, currentUser.name, props.isOpen, reset]);
 
   async function handleSubmit() {
     const res = await sendApiUpdate(setCurrentUser, currentUser, form.getData(), 'editProfile');
@@ -32,6 +36,7 @@ const EditProfilePopup = memo((props) => {
     <PopupWithForm
       {...props}
       onSubmit={handleSubmit}
+      onReset={reset}
       title="Редактировать профиль"
       name="profile-editor"
       isSubmitDisabled={form.isInvalid}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const initialStates = {
   errors: {},
@@ -45,14 +45,18 @@ export default function useValidatedForm(initialData = {}) {
         name,
       };
     },
-    reset() {
-      setData(initialData);
-      setErrors(initialStates.errors);
-      setIsInvalid(initialStates.isInvalid);
-    },
+    reset: useCallback(
+      (e_, data) => {
+        setData(data ?? initialData);
+        setErrors(initialStates.errors);
+        setIsInvalid(initialStates.isInvalid);
+      },
+      [initialData]
+    ),
     getData() {
       return data;
     },
     isInvalid,
+    setData,
   };
 }
