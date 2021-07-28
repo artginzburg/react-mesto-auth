@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import useForm from '../hooks/useForm';
+import useValidatedForm from '../hooks/useValidatedForm';
 
 import PopupWithForm from './PopupWithForm';
 import FormInput from './FormInput';
@@ -11,7 +11,7 @@ const defaults = {
 };
 
 const AddPlacePopup = memo((props) => {
-  const form = useForm(defaults);
+  const form = useValidatedForm(defaults);
 
   function handleSubmit() {
     const { title, link } = form.getData();
@@ -30,6 +30,7 @@ const AddPlacePopup = memo((props) => {
       title="Новое место"
       name="element-editor"
       buttonTitle="Создать"
+      isSubmitDisabled={!form.isValid}
     >
       <FormInput
         isFocused={props.isOpen}

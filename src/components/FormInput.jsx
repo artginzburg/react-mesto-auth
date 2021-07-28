@@ -9,7 +9,7 @@ const defaults = {
   minLength: 2,
 };
 
-const FormInput = forwardRef(({ isFocused, ...props }, forwardedRef) => {
+const FormInput = forwardRef(({ isFocused, validationMessage, ...props }, forwardedRef) => {
   const ref = forwardedRef ?? createRef();
 
   const type = props.type ?? defaults.type;
@@ -43,10 +43,19 @@ const FormInput = forwardRef(({ isFocused, ...props }, forwardedRef) => {
     <>
       <input
         {...props}
-        {...classNames([formClassesConfig.inputClass, props.className])}
+        {...classNames([
+          formClassesConfig.inputClass,
+          validationMessage && formClassesConfig.inputErrorClass,
+          props.className,
+        ])}
         {...finalProps}
       />
-      <p className="form__error" id={`${props.id}-error`} />
+      <p
+        {...classNames(['form__error', validationMessage && 'form__error_visible'])}
+        id={`${props.id}-error`}
+      >
+        {validationMessage}
+      </p>
     </>
   );
 });

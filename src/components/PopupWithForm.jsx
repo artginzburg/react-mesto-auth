@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { popupSelectors, formClassesConfig } from '../utils/utils';
-import enableValidation from '../utils/enableValidation';
-import { defaultFormConfig } from '../utils/utils';
 
 import inPopup from './inPopup';
 import Form from './Form';
@@ -40,21 +38,6 @@ const PopupWithForm = ({ onSubmit, children, onReset, ...props }) => {
     [children, onReset, onSubmit]
   );
 
-  const popupId = props.name;
-
-  useEffect(() => {
-    // Prevent non-reactive validation from getting destroyed by conditional rendering
-    if (props.isOpen) {
-      const validationTimeout = setTimeout(() => {
-        enableValidation(
-          document.getElementById(popupId).querySelector(defaultFormConfig.formSelector)
-        );
-      }, 1);
-
-      return () => clearTimeout(validationTimeout);
-    }
-  }, [popupId, props.isOpen]);
-
   return (
     <div className="popup__container">
       <button type="reset" className={popupSelectors.closeButtonClass} />
@@ -62,7 +45,11 @@ const PopupWithForm = ({ onSubmit, children, onReset, ...props }) => {
 
       <Form className={formClassesConfig.formClass} onSubmit={handleSubmit} onReset={onReset}>
         {children}
-        <button type="submit" className={`popup__button ${formClassesConfig.submitButtonClass}`}>
+        <button
+          disabled={props.isSubmitDisabled || buttonIsSaving}
+          type="submit"
+          className={`popup__button ${formClassesConfig.submitButtonClass}`}
+        >
           {buttonTitle}
         </button>
       </Form>
