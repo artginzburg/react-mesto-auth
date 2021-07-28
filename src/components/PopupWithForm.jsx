@@ -43,7 +43,7 @@ const PopupWithForm = ({ onSubmit, children, onReset, ...props }) => {
       <button type="reset" className={popupSelectors.closeButtonClass} />
       <h2 className="popup__title">{props.title}</h2>
 
-      <Form className={formClassesConfig.formClass} onSubmit={handleSubmit} onReset={onReset}>
+      <Form onSubmit={handleSubmit} onReset={onReset}>
         {children}
         <button
           disabled={props.isSubmitDisabled || buttonIsSaving}

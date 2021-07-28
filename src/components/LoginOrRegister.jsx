@@ -49,7 +49,7 @@ const LoginOrRegister = memo((props) => {
     <div className="content auth">
       <h2 className="auth__title">{props.title}</h2>
 
-      <Form onSubmit={handleSubmit} onReset={handleReset} className={formClassesConfig.formClass}>
+      <Form onSubmit={handleSubmit} onReset={handleReset}>
         <FormInput
           {...propsForInputs}
           autoFocus

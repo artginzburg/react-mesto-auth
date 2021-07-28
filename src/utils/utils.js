@@ -5,10 +5,7 @@ export const popupSelectors = {
 };
 
 export const formClassesConfig = {
-  formClass: 'form',
   inputClass: 'form__input',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__error_visible',
   submitButtonClass: 'form__button',
 };
 

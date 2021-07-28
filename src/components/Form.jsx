@@ -13,7 +13,7 @@ const Form = memo(({ onSubmit, ...props }) => {
   );
 
   return (
-    <form action="#" onSubmit={handleSubmit} {...props}>
+    <form action="#" onSubmit={handleSubmit} className="form" {...props}>
       {props.children}
     </form>
   );

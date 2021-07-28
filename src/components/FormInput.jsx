@@ -45,7 +45,7 @@ const FormInput = forwardRef(({ isFocused, validationMessage, ...props }, forwar
         {...props}
         {...classNames([
           formClassesConfig.inputClass,
-          validationMessage && formClassesConfig.inputErrorClass,
+          validationMessage && 'form__input_type_error',
           props.className,
         ])}
         {...finalProps}
