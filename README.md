@@ -41,8 +41,8 @@ In the project directory, you can run:
 
 - Ideas (sorted by concern)
 
-  - [ ] Make form validation "Reactive"
   - [ ] Add locales and English language
+  - [x] Make form validation "Reactive"
   - [x] Make InfoTooltip image unclickable
   - [x] Remove excessive `withRouter()`s
   - [x] Move popups to React.createPortal and other container
