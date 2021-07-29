@@ -18,7 +18,7 @@ const EditProfilePopup = memo((props) => {
   const { reset, ...form } = useValidatedForm(currentUser);
 
   useEffect(() => {
-    if (props.isOpen) {
+    if (!props.isOpen) {
       reset(null, {
         name: currentUser.name,
         about: currentUser.about,

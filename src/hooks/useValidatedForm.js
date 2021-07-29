@@ -65,5 +65,6 @@ export default function useValidatedForm(initialData = {}) {
     getData() {
       return data;
     },
+    isInvalid,
   };
 }

@@ -13,7 +13,7 @@ export default class Api {
     };
   }
 
-  _handleFetch = res => (res.ok ? res.json() : Promise.reject(res.status));
+  _handleFetch = (res) => (res.ok ? res.json() : Promise.reject(res.statusText));
 
   _customFetch(target, method, body) {
     const options = {

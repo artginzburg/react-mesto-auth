@@ -16,64 +16,46 @@ const inputNames = {
   password: 'password',
 };
 
-const LoginOrRegister = memo((props) => {
+const LoginOrRegister = memo(({ form, ...props }) => {
   const [buttonIsSaving, setButtonIsSaving] = useState(false);
 
   const buttonTitle = buttonIsSaving ? props.buttonSavingTitle : props.buttonTitle;
 
-  const [email, setEmail] = props.states.email;
-  const [password, setPassword] = props.states.password;
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   function handleSubmit(e) {
     setButtonIsSaving(true);
 
-    props.handleSubmit(e, email, password).finally(() => {
-      setButtonIsSaving(false);
-    });
-  }
+    const { email, password } = form.getData();
 
-  function handleReset() {
-    setEmail('');
-    setPassword('');
+    props.handleSubmit(e, email, password).finally(() => {
+      buttonIsSaving && setButtonIsSaving(false);
+    });
   }
 
   return (
     <div className="content auth">
       <h2 className="auth__title">{props.title}</h2>
 
-      <Form onSubmit={handleSubmit} onReset={handleReset}>
+      <Form onSubmit={handleSubmit} onReset={form.reset}>
         <FormInput
           {...propsForInputs}
           autoFocus
+          {...form.register(inputNames.email)}
           id={inputNames.email}
-          name={inputNames.email}
           type={inputNames.email}
-          placeholder="Email"
           autoComplete={inputNames.email}
-          value={email}
-          onChange={handleEmailChange}
+          placeholder="Email"
         />
         <FormInput
           {...propsForInputs}
-          id={props.passwordAutocomplete}
-          name={inputNames.password}
+          {...form.register(inputNames.password)}
           type={inputNames.password}
-          placeholder="Пароль"
+          id={props.passwordAutocomplete}
           autoComplete={props.passwordAutocomplete}
-          value={password}
-          onChange={handlePasswordChange}
+          placeholder="Пароль"
         />
         <button
           type="submit"
-          disabled={!email.length || !password.length}
+          disabled={form.isInvalid || buttonIsSaving}
           className={`auth__button ${formClassesConfig.submitButtonClass} ${formClassesConfig.submitButtonClass}_theme_dark`}
         >
           {buttonTitle}
