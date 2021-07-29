@@ -14,7 +14,8 @@ export default function useValidatedForm(initialData = {}) {
     setData((prevData) => {
       const newData = { ...prevData, [name]: value };
 
-      const newDataEqualsInitial = JSON.stringify(newData) === JSON.stringify(initialData);
+      const newDataEqualsInitial =
+        JSON.stringify({ ...initialData, ...newData }) === JSON.stringify(initialData);
       if (newDataEqualsInitial) {
         setIsInvalid(true);
       }
@@ -27,7 +28,22 @@ export default function useValidatedForm(initialData = {}) {
     setErrors((prevData) => ({ ...prevData, [name]: validationMessage }));
   }
 
+  const reset = useCallback(
+    (e_, data) => {
+      setData(data ?? initialData);
+      setErrors(initialStates.errors);
+      setIsInvalid(initialStates.isInvalid);
+    },
+    [initialData]
+  );
+
   return {
+    registerForm() {
+      return {
+        isSubmitDisabled: isInvalid,
+        onReset: reset,
+      };
+    },
     register(name) {
       return {
         value: data[name] ?? '',
@@ -36,7 +52,7 @@ export default function useValidatedForm(initialData = {}) {
           const { value, validationMessage } = input;
 
           handleChange(name, value);
-          handleError(name, validationMessage);
+          handleError(name, value.length ? validationMessage : '');
 
           const formValidity = input.closest('form').checkValidity();
           setIsInvalid(!formValidity);
@@ -45,18 +61,9 @@ export default function useValidatedForm(initialData = {}) {
         name,
       };
     },
-    reset: useCallback(
-      (e_, data) => {
-        setData(data ?? initialData);
-        setErrors(initialStates.errors);
-        setIsInvalid(initialStates.isInvalid);
-      },
-      [initialData]
-    ),
+    reset,
     getData() {
       return data;
     },
-    isInvalid,
-    setData,
   };
 }

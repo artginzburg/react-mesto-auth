@@ -27,10 +27,9 @@ const EditAvatarPopup = memo((props) => {
     <PopupWithForm
       {...props}
       onSubmit={handleSubmit}
-      onReset={form.reset}
       title="Обновить аватар"
       name="avatar-editor"
-      isSubmitDisabled={form.isInvalid}
+      {...form.registerForm()}
     >
       <FormInput
         isFocused={props.isOpen}

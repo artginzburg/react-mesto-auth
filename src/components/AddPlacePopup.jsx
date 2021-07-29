@@ -16,11 +16,10 @@ const AddPlacePopup = memo((props) => {
     <PopupWithForm
       {...props}
       onSubmit={handleSubmit}
-      onReset={form.reset}
       title="Новое место"
       name="element-editor"
       buttonTitle="Создать"
-      isSubmitDisabled={form.isInvalid}
+      {...form.registerForm()}
     >
       <FormInput
         isFocused={props.isOpen}
