@@ -19,12 +19,9 @@ const EditProfilePopup = memo((props) => {
 
   useEffect(() => {
     if (!props.isOpen) {
-      reset(null, {
-        name: currentUser.name,
-        about: currentUser.about,
-      });
+      reset();
     }
-  }, [currentUser.about, currentUser.name, props.isOpen, reset]);
+  }, [props.isOpen, reset]);
 
   async function handleSubmit() {
     const res = await sendApiUpdate(setCurrentUser, currentUser, form.getData(), 'editProfile');
@@ -38,7 +35,7 @@ const EditProfilePopup = memo((props) => {
       onSubmit={handleSubmit}
       title="Редактировать профиль"
       name="profile-editor"
-      {...form.registerForm()}
+      isSubmitDisabled={form.isInvalid}
     >
       <FormInput
         isFocused={props.isOpen}
