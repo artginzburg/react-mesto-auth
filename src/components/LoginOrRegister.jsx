@@ -19,7 +19,7 @@ const inputNames = {
 const LoginOrRegister = memo(({ form, ...props }) => {
   const [buttonIsSaving, setButtonIsSaving] = useState(false);
 
-  const buttonTitle = buttonIsSaving ? props.buttonSavingTitle : props.buttonTitle;
+  const buttonTitle = buttonIsSaving ? `${props.buttonSavingTitle}...` : props.buttonTitle;
 
   function handleSubmit(e) {
     setButtonIsSaving(true);

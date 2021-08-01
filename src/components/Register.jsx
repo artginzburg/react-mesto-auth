@@ -9,7 +9,7 @@ const defaultProps = {
   passwordAutocomplete: 'new-password',
   title: pathNames.register.title,
   buttonTitle: pathNames.register.action,
-  buttonSavingTitle: `${pathNames.register.title}...`,
+  buttonSavingTitle: pathNames.register.title,
 };
 
 const Register = memo((props) => (
