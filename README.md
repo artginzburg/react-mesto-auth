@@ -2,6 +2,9 @@
 
 > Mesto frontend with authentification
 
+<img align="right" alt="GitHub Build and Deploy status" src="https://img.shields.io/github/workflow/status/artginzburg/react-mesto-auth/Build%20and%20Deploy">
+<img align="right" alt="GitHub CodeQL Status" src="https://img.shields.io/github/workflow/status/artginzburg/react-mesto-auth/CodeQL?label=CodeQL">
+
 Project 12: <kbd>[Reviewed and accepted version of the project](https://github.com/artginzburg/react-mesto-auth/tree/project-12_final)</kbd>
 
 ## Description
