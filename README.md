@@ -40,20 +40,16 @@ In the project directory, you can run:
 
 <br>
 
-## To-do
+## To-do ideas (sorted by concern)
 
-- Ideas (sorted by concern)
-
-  - [ ] Add locales and English language
-  - [x] Make form validation "Reactive"
-  - [x] Make InfoTooltip image unclickable
-  - [x] Remove excessive `withRouter()`s
-  - [x] Move popups to React.createPortal and other container
+- [ ] Add locales and English language
 
 ## Tech
 
 - Auth
 - React
+  - "Reactive" form validation
+  - Popups are added with React.createPortal
 
 ## Links
 
