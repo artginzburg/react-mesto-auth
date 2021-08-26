@@ -217,7 +217,7 @@ function App() {
     return auth
       .login(email, password)
       .then((data) => {
-        if (data.message) {
+        if (data) {
           e.target.reset();
 
           handleLogin(email);

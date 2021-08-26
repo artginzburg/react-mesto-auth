@@ -10,7 +10,7 @@ export default class Api {
     this._authFormat = '';
   }
 
-  _handleFetch = (res) => (res.ok ? res.json().data : Promise.reject(res.statusText));
+  _handleFetch = (res) => (res.ok ? res.json() : Promise.reject(res.statusText));
 
   _customFetch(target, method, body) {
     const options = {
