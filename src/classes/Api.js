@@ -10,7 +10,14 @@ export default class Api {
     this._authFormat = '';
   }
 
-  _handleFetch = (res) => (res.ok ? res.json().data : Promise.reject(res.statusText));
+  _handleFetch = (res) => (res.ok ? res.json() : Promise.reject(res.statusText));
+
+  _handleData = (result) => {
+    if (result.data) {
+      return result.data;
+    }
+    return result;
+  };
 
   _customFetch(target, method, body) {
     const options = {
@@ -29,6 +36,8 @@ export default class Api {
       options.body = JSON.stringify(body);
     }
 
-    return fetch(`${this._baseUrl}/${target}`, options).then(this._handleFetch);
+    return fetch(`${this._baseUrl}/${target}`, options)
+      .then(this._handleFetch)
+      .then(this._handleData);
   }
 }
