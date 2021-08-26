@@ -1,8 +1,8 @@
-import { apiDomain } from '../utils/constants';
+import { api } from '../utils/constants';
 
 export default class Api {
   constructor(options = {}) {
-    this._baseUrl = options.baseUrl ?? apiDomain.origin;
+    this._baseUrl = options.baseUrl ?? api.domain.origin;
     this._headers = options.headers;
   }
 

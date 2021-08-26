@@ -1,4 +1,15 @@
-export const apiDomain = new URL('https://api.m.e.s.t.o.nomoredomains.rocks');
+import { apiPath } from '../utils/pkg';
+
+export const api = {
+  domain: apiPath,
+  endpoints: {
+    users: 'users/me',
+    cards: 'cards',
+    signup: 'signup',
+    signin: 'signin',
+    signout: 'signout',
+  },
+};
 
 export const paths = {
   login: '/login',

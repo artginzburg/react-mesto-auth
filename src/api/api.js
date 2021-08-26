@@ -1,11 +1,5 @@
 import Api from '../classes/Api';
-
-const api = {
-  endpoints: {
-    users: 'users/me',
-    cards: 'cards',
-  },
-};
+import { api } from '../utils/constants';
 
 class Features extends Api {
   getUserInfo() {

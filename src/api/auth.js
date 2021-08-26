@@ -1,12 +1,5 @@
 import Api from '../classes/Api';
-
-const api = {
-  endpoints: {
-    signup: 'signup',
-    signin: 'signin',
-    user: 'users/me',
-  },
-};
+import { api } from '../utils/constants';
 
 class Auth extends Api {
   register(email, password) {
@@ -17,8 +10,12 @@ class Auth extends Api {
     return this._customFetch(api.endpoints.signin, 'POST', { password, email });
   }
 
+  logout() {
+    return this._customFetch(api.endpoints.signout, 'DELETE');
+  }
+
   getUserInfo() {
-    return this._customFetch(api.endpoints.user);
+    return this._customFetch(api.endpoints.users);
   }
 }
 

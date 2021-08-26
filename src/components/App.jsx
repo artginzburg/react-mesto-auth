@@ -231,9 +231,17 @@ function App() {
   }
 
   function handleSignOut() {
-    setLoggedIn(false);
-    history.replace(paths.login);
-    scrollToTop();
+    auth
+      .logout()
+      .then(() => {
+        setLoggedIn(false);
+        history.replace(paths.login);
+        scrollToTop();
+      })
+      .catch((err) => {
+        setIsInfoTooltipOpen(true);
+        console.log(err);
+      });
   }
 
   React.useEffect(() => {
