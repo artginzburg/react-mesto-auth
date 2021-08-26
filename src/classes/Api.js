@@ -5,7 +5,6 @@ export default class Api {
     this._baseUrl = options.baseUrl ?? apiDomain.origin;
     this._headers = {
       ...options.headers,
-      credentials: 'include',
     };
 
     this._authFormat = '';
@@ -16,6 +15,7 @@ export default class Api {
   _customFetch(target, method, body) {
     const options = {
       headers: this._headers ?? {},
+      credentials: 'include',
     };
 
     if (method && method !== 'GET') {
