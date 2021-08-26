@@ -1,16 +1,14 @@
+import { apiDomain } from '../utils/constants';
+
 export default class Api {
-  constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._headers = options.headers;
+  constructor(options = {}) {
+    this._baseUrl = options.baseUrl ?? apiDomain.origin;
+    this._headers = {
+      ...options.headers,
+      credentials: 'include',
+    };
 
     this._authFormat = '';
-  }
-
-  _constructAuthorization() {
-    this._headers = {
-      ...this._headers,
-      authorization: this._authFormat + localStorage.token,
-    };
   }
 
   _handleFetch = (res) => (res.ok ? res.json() : Promise.reject(res.statusText));

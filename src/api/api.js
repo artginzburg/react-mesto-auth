@@ -1,12 +1,6 @@
 import Api from '../classes/Api';
-import { apiDomain } from '../utils/constants';
-
-const COHORT_ID = 'cohort-24';
-const TOKEN = '70313b07-c3c0-40aa-a296-04d0e6bc7885';
 
 const api = {
-  url: new URL(`https://mesto.${apiDomain}`),
-  version: 'v1',
   endpoints: {
     users: 'users/me',
     cards: 'cards',
@@ -34,10 +28,10 @@ class Features extends Api {
       link,
     });
 
-  deleteCard = cardId => this._customFetch(`${api.endpoints.cards}/${cardId}`, 'DELETE');
+  deleteCard = (cardId) => this._customFetch(`${api.endpoints.cards}/${cardId}`, 'DELETE');
 
   changeLikeCardStatus = (cardId, status) =>
-    this._customFetch(`${api.endpoints.cards}/likes/${cardId}`, status ? 'PUT' : 'DELETE');
+    this._customFetch(`${api.endpoints.cards}/${cardId}/likes`, status ? 'PUT' : 'DELETE');
 
   updateAvatar = ({ avatar }) =>
     this._customFetch(`${api.endpoints.users}/avatar`, 'PATCH', {
@@ -45,9 +39,4 @@ class Features extends Api {
     });
 }
 
-export default new Features({
-  baseUrl: `${api.url.origin}/${api.version}/${COHORT_ID}`,
-  headers: {
-    authorization: TOKEN,
-  },
-});
+export default new Features();

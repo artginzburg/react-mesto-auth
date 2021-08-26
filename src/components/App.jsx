@@ -54,18 +54,17 @@ function App() {
   const [cards, setCards] = useStateWithLocalStorage('cards', []);
 
   React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then(setCurrentUser)
-      .catch((err) => console.log('Couldnt get user info from the server', err));
-  }, [setCurrentUser]);
-
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then(setCards)
-      .catch((err) => console.log('Couldnt get initial cards from the server', err));
-  }, [setCards]);
+    if (loggedIn) {
+      api
+        .getUserInfo()
+        .then(setCurrentUser)
+        .catch((err) => console.log('Couldnt get user info from the server', err));
+      api
+        .getInitialCards()
+        .then(setCards)
+        .catch((err) => console.log('Couldnt get initial cards from the server', err));
+    }
+  }, [loggedIn, setCards, setCurrentUser]);
 
   async function handleCardLike(card) {
     const oldCards = cards;
@@ -112,7 +111,7 @@ function App() {
         console.log('Couldnt delete card on the server', error);
       });
     },
-    [cards, setCards]
+    [cards, setCards],
   );
 
   function handleEditAvatarClick() {
@@ -175,28 +174,23 @@ function App() {
       setEmail(email);
       setLoggedIn(true);
     },
-    [setEmail, setLoggedIn]
+    [setEmail, setLoggedIn],
   );
 
   const handleTokenCheck = React.useCallback(() => {
-    if (localStorage.token) {
-      auth.token = localStorage.token;
-      auth
-        .getUserInfo()
-        .then((res) => {
-          if (res) {
-            handleLogin(res.email);
-            history.replace(paths.main);
-          }
-        })
-        .catch((err) => {
-          setLoggedIn(false);
+    auth
+      .getUserInfo()
+      .then((res) => {
+        if (res) {
+          handleLogin(res.email);
+          history.replace(paths.main);
+        }
+      })
+      .catch((err) => {
+        setLoggedIn(false);
 
-          console.log(err);
-        });
-    } else {
-      setLoggedIn(false);
-    }
+        console.log(err);
+      });
   }, [handleLogin, history, setLoggedIn]);
 
   function handleSubmitRegister(e_, email, password) {
@@ -223,10 +217,8 @@ function App() {
     return auth
       .login(email, password)
       .then((data) => {
-        if (data.token) {
+        if (data.message) {
           e.target.reset();
-
-          localStorage.token = data.token;
 
           handleLogin(email);
           history.push(paths.main);
@@ -239,7 +231,6 @@ function App() {
   }
 
   function handleSignOut() {
-    delete localStorage.token;
     setLoggedIn(false);
     history.replace(paths.login);
     scrollToTop();

@@ -1,4 +1,4 @@
-export const apiDomain = 'nomoreparties.co';
+export const apiDomain = new URL('https://api.m.e.s.t.o.nomoredomains.rocks');
 
 export const paths = {
   login: '/login',
