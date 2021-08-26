@@ -3,21 +3,12 @@ import { apiDomain } from '../utils/constants';
 export default class Api {
   constructor(options = {}) {
     this._baseUrl = options.baseUrl ?? apiDomain.origin;
-    this._headers = {
-      ...options.headers,
-    };
-
-    this._authFormat = '';
+    this._headers = options.headers;
   }
 
   _handleFetch = (res) => (res.ok ? res.json() : Promise.reject(res.statusText));
 
-  _handleData = (result) => {
-    if (result.data) {
-      return result.data;
-    }
-    return result;
-  };
+  _handleData = (result) => result.data ?? result;
 
   _customFetch(target, method, body) {
     const options = {
