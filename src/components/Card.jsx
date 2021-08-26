@@ -11,7 +11,9 @@ const Card = memo(({ card, ...props }) => {
     card.owner = currentUser;
   }
 
-  const isOwn = card.owner._id === currentUser._id;
+  const isOwn = card.owner._id
+    ? card.owner._id === currentUser._id
+    : card.owner === currentUser._id;
 
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
