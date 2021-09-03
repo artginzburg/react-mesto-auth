@@ -42,6 +42,7 @@ In the project directory, you can run:
 
 ## To-do ideas (sorted by concern)
 
+- [ ] Add lightbox modal zoom (like Magnific Popup or Fancybox)
 - [ ] Add locales and English language
 
 ## Tech
