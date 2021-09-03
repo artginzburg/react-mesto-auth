@@ -29,13 +29,16 @@ const Card = memo(({ card, ...props }) => {
     props.onCardDelete(card);
   }
 
+  const authorInfo = `Автор: ${card.owner.name} · ${card.owner.about}`;
+  const authorInfoDev = `${authorInfo}\n\n#${card.owner._id}\n${card.owner.avatar}`;
+
   return (
     <li className="element">
       <img onClick={handleImageClick} className="element__image" alt={card.name} src={card.link} />
       {isOwn && (
         <button onClick={handleDeleteClick} type="reset" className="element__trash-button" />
       )}
-      <div className="element__container">
+      <div className="element__container" title={authorInfo}>
         <h2 className="element__title">{card.name}</h2>
         <div className="element__likes">
           <input
@@ -43,6 +46,7 @@ const Card = memo(({ card, ...props }) => {
             type="checkbox"
             onChange={handleLikeClick}
             className="element__like-button"
+            title={authorInfoDev}
           />
           <p className="element__like-counter">{card.likes.length}</p>
         </div>
