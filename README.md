@@ -68,3 +68,5 @@ In the project directory, you can run:
   &nbsp;
   <a href="https://github.com/artginzburg/express-mesto">Next --></a>
 </p>
+
+![](./resources/preview.png)
