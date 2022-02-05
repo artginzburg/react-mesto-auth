@@ -22,10 +22,12 @@ export const pathNames = {
 
 const keyboard = {
   close: 'Escape',
+  confirm: 'Enter',
 };
 
 const getButtonPrompt = (key) => `[${key}]`;
 
 export const tooltips = {
   close: getButtonPrompt(keyboard.close),
+  confirm: getButtonPrompt(keyboard.confirm),
 };

@@ -48,6 +48,7 @@ const PopupWithForm = ({ onSubmit, children, onReset, ...props }) => {
         {children}
         <button
           disabled={props.isSubmitDisabled || buttonIsSaving}
+          title={tooltips.confirm}
           type="submit"
           className={`popup__button ${formClassesConfig.submitButtonClass}`}
         >
