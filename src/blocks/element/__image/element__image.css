@@ -1,5 +1,6 @@
 .element__image {
   height: 282px;
+  min-height: 282px; /* Chrome-specific fix of zero-height images that failed to load */
   width: 100%;
 
   object-fit: cover;
@@ -13,6 +14,7 @@
   transition-duration: .3s;
 
   /* font-size: medium; needed to display alts of images that failed to load */
+  transform: scale(1.005); /* Safari-specific fix of mysterious img outline */
 }
 
 .element__image:active {
