@@ -18,8 +18,10 @@ const Popup = memo(({ isOpen, closeTimeoutMS = 250, ...props }) => {
   useEffect(() => {
     if (isOpen) {
       setShouldAppearInDOM(!defaults.shouldAppearInDOM);
-      setClassNameForAnimation(defaults.classNameOpened);
-      return;
+      const showingTimeout = setTimeout(() => {
+        setClassNameForAnimation(defaults.classNameOpened);
+      }, 5); // TODO remove this 5ms delay. This is a temporary fix so that Safari displays a transition between .popup and .popup_opened. Chrome, btw, just ignores the transition. Maybe I should rewrite this to a CSS-only solution.
+      return () => clearTimeout(showingTimeout);
     }
     document.activeElement.blur(); // fixes mobile keyboard being stuck on the screen after form submission (due to `event.preventDefault()`)
 
