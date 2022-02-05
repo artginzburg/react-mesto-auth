@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { popupSelectors, formClassesConfig } from '../utils/utils';
+import { tooltips } from '../utils/constants';
 
 import inPopup from './inPopup';
 import Form from './Form';
@@ -40,7 +41,7 @@ const PopupWithForm = ({ onSubmit, children, onReset, ...props }) => {
 
   return (
     <div className="popup__container">
-      <button type="reset" className={popupSelectors.closeButtonClass} />
+      <button title={tooltips.close} type="reset" className={popupSelectors.closeButtonClass} />
       <h2 className="popup__title">{props.title}</h2>
 
       <Form onSubmit={handleSubmit} onReset={onReset}>

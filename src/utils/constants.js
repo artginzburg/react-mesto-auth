@@ -19,3 +19,13 @@ export const pathNames = {
     action: 'Выйти',
   },
 };
+
+const keyboard = {
+  close: 'Escape',
+};
+
+const getButtonPrompt = (key) => `[${key}]`;
+
+export const tooltips = {
+  close: getButtonPrompt(keyboard.close),
+};

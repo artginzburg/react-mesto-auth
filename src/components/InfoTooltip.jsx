@@ -2,6 +2,7 @@ import checkIcon from '../images/check.svg';
 import crossIcon from '../images/cross.svg';
 
 import { popupSelectors } from '../utils/utils';
+import { tooltips } from '../utils/constants';
 
 import inPopup from './inPopup';
 
@@ -9,7 +10,7 @@ const backgroundImageUrl = (url) => ({ backgroundImage: `url(${url})` });
 
 const InfoTooltip = ({ isSuccess }) => (
   <div className="popup__container">
-    <button type="button" className={popupSelectors.closeButtonClass} />
+    <button title={tooltips.close} type="button" className={popupSelectors.closeButtonClass} />
 
     <div className="info-tooltip">
       <div

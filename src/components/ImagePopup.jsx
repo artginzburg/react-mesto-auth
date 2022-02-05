@@ -1,5 +1,6 @@
 import { popupSelectors } from '../utils/utils';
 import { classNames } from '../utils/toClassNames';
+import { tooltips } from '../utils/constants';
 
 import inPopup from './inPopup';
 
@@ -10,7 +11,7 @@ const buttonClassNames = [
 
 const ImagePopup = ({ card }) => (
   <figure className="popup__figure">
-    <button type="button" {...classNames(buttonClassNames)} />
+    <button title={tooltips.close} type="button" {...classNames(buttonClassNames)} />
     <img className="popup__image" alt={card.name} src={card.link} />
     <figcaption className="popup__caption">{card.name}</figcaption>
   </figure>
