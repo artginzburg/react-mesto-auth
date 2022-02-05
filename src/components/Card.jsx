@@ -1,6 +1,7 @@
 import { memo } from 'react';
 
 import { useCurrentUser } from '../contexts/CurrentUserContext';
+import checkImageLoading from '../utils/checkImageLoading';
 
 const Card = memo(({ card, ...props }) => {
   card.likes = card.likes ?? [];
@@ -15,8 +16,16 @@ const Card = memo(({ card, ...props }) => {
 
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-  function handleImageClick() {
-    props.onCardClick(card);
+  function handleImageClick(e) {
+    if (checkImageLoading(e.target)) {
+      // UX - this makes user unable to open an unloaded image
+      props.onCardClick(card);
+    }
+  }
+  function handleImageError(e) {
+    // UI for images that failed to load
+    e.target.style.cursor = 'default';
+    e.target.title = `Failed to load image: "${card.name}"`;
   }
 
   function handleLikeClick() {
@@ -34,7 +43,13 @@ const Card = memo(({ card, ...props }) => {
 
   return (
     <li className="element">
-      <img onClick={handleImageClick} className="element__image" alt={card.name} src={card.link} />
+      <img
+        onError={handleImageError}
+        onClick={handleImageClick}
+        className="element__image"
+        alt={card.name}
+        src={card.link}
+      />
       {isOwn && (
         <button onClick={handleDeleteClick} type="reset" className="element__trash-button" />
       )}
