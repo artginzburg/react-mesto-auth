@@ -2,6 +2,7 @@ import { memo } from 'react';
 
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 import checkImageLoading from '../utils/checkImageLoading';
+import { classNames } from '../utils/toClassNames';
 
 const Card = memo(({ card, ...props }) => {
   card.likes = card.likes ?? [];
@@ -42,7 +43,7 @@ const Card = memo(({ card, ...props }) => {
   const authorInfoDev = `${authorInfo}\n\n#${card.owner._id}\n${card.owner.avatar}`;
 
   return (
-    <li className="element">
+    <li {...classNames(['element', card.isTemporarilyLocal && 'element_appearing'])}>
       <img
         onError={handleImageError}
         onClick={handleImageClick}
