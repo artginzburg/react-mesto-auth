@@ -31,3 +31,6 @@ export const tooltips = {
   close: getButtonPrompt(keyboard.close),
   confirm: getButtonPrompt(keyboard.confirm),
 };
+
+export const modalRoot = document.getElementById('modal-root');
+export const root = document.getElementById('root');

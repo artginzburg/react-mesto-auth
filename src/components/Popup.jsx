@@ -2,8 +2,7 @@ import { useState, useEffect, memo } from 'react';
 import { createPortal } from 'react-dom';
 
 import { classNames } from '../utils/toClassNames';
-
-const modalRoot = document.getElementById('modal-root');
+import { modalRoot } from '../utils/constants';
 
 const defaults = {
   className: 'popup',

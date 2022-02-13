@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Route, Switch, useHistory } from 'react-router-dom';
 
-import { paths } from '../utils/constants';
+import { paths, root } from '../utils/constants';
 import scrollToTop from '../utils/scrollToTop';
 
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
@@ -66,6 +66,26 @@ function App() {
       .then(setCards)
       .catch((err) => console.log('Couldnt get initial cards from the server', err));
   }, [setCards]);
+
+  React.useEffect(() => {
+    root.classList[
+      isEditProfilePopupOpen ||
+      isAddPlacePopupOpen ||
+      isEditAvatarPopupOpen ||
+      isConfirmDeletePopupOpen ||
+      isImagePopupOpen ||
+      isInfoTooltipOpen
+        ? 'add'
+        : 'remove'
+    ]('root-animated_popped-out');
+  }, [
+    isAddPlacePopupOpen,
+    isConfirmDeletePopupOpen,
+    isEditAvatarPopupOpen,
+    isEditProfilePopupOpen,
+    isImagePopupOpen,
+    isInfoTooltipOpen,
+  ]);
 
   async function handleCardLike(card) {
     const oldCards = cards;
