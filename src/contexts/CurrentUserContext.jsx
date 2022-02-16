@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext, useContext } from 'react';
 
 import api from '../api/api';
 
@@ -7,8 +7,8 @@ const defaultUserState = {
   about: 'Потеряно соединение с сервером',
 };
 
-const CurrentUserContext = React.createContext();
-const CurrentUserDispatchContext = React.createContext();
+const CurrentUserContext = createContext();
+const CurrentUserDispatchContext = createContext();
 
 function CurrentUserProvider({ state, dispatch, children }) {
   return (
@@ -21,7 +21,7 @@ function CurrentUserProvider({ state, dispatch, children }) {
 }
 
 function useCurrentUser() {
-  const context = React.useContext(CurrentUserContext);
+  const context = useContext(CurrentUserContext);
   if (context === undefined) {
     throw new Error('useCurrentUser must be used within a CurrentUserProvider');
   }
@@ -29,7 +29,7 @@ function useCurrentUser() {
 }
 
 function useCurrentUserDispatcher() {
-  const context = React.useContext(CurrentUserDispatchContext);
+  const context = useContext(CurrentUserDispatchContext);
   if (context === undefined) {
     throw new Error('useCurrentUserDispatcher must be used within a CurrentUserProvider');
   }

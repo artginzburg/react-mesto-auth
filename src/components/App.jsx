@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Route, Switch, useHistory } from 'react-router-dom';
 
@@ -40,34 +40,34 @@ function App() {
   const [loggedIn, setLoggedIn] = useStateWithLocalStorage('loggedIn', false);
   const [email, setEmail] = useStateWithBase64('email', '');
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
-  const [isInfoTooltipSuccess, setIsInfoTooltipSuccess] = React.useState(false);
+  const [isInfoTooltipSuccess, setIsInfoTooltipSuccess] = useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [selectedCard, setSelectedCard] = useState({});
 
   const [cards, setCards] = useStateWithLocalStorage('cards', []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getUserInfo()
       .then(setCurrentUser)
       .catch((err) => console.log('Couldnt get user info from the server', err));
   }, [setCurrentUser]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getInitialCards()
       .then(setCards)
       .catch((err) => console.log('Couldnt get initial cards from the server', err));
   }, [setCards]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     root.classList[
       isEditProfilePopupOpen ||
       isAddPlacePopupOpen ||
@@ -119,7 +119,7 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
-  const handleCardDelete = React.useCallback(
+  const handleCardDelete = useCallback(
     (card) => {
       const oldCards = cards;
 
@@ -159,7 +159,7 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
-  const handlePopupClick = React.useCallback((e) => {
+  const handlePopupClick = useCallback((e) => {
     e.target === e.currentTarget && closeAllPopups();
   }, []);
 
@@ -190,7 +190,7 @@ function App() {
 
   useEscapeHandler(closeAllPopups);
 
-  const handleLogin = React.useCallback(
+  const handleLogin = useCallback(
     (email) => {
       setEmail(email);
       setLoggedIn(true);
@@ -198,7 +198,7 @@ function App() {
     [setEmail, setLoggedIn]
   );
 
-  const handleTokenCheck = React.useCallback(() => {
+  const handleTokenCheck = useCallback(() => {
     if (localStorage.token) {
       auth.token = localStorage.token;
       auth
@@ -265,7 +265,7 @@ function App() {
     scrollToTop();
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleTokenCheck();
   }, [handleTokenCheck]);
 
