@@ -50,6 +50,6 @@ const Main = memo(props => {
       </section>
     </main>
   );
-});
+}, (prevProps, nextProps) => JSON.stringify(prevProps) === JSON.stringify(nextProps));
 
 export default Main;
