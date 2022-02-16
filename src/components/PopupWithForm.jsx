@@ -33,7 +33,10 @@ const PopupWithForm = ({ onSubmit, children, onReset, ...props }) => {
             console.log(err);
           })
           .finally(() => {
-            setButtonIsSaving(false);
+            if (e.target.clientWidth) {
+              // if the component is unmounted, clientWidth will be 0, preventing memory leak
+              setButtonIsSaving(false);
+            }
           });
     },
     [children, onReset, onSubmit]
